@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="../plugins/elementui/index.css">
+
+		<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+
+		<link rel="stylesheet" href="../css/style.css">
+		<meta charset="utf-8" />
+		<title>(*^▽^*)欢迎登录</title>
+		<style type="text/css">
+			#aa{height: 30px;width: 100%;float: left;}
+		/* html.body{width: 100%;height: 100%;} */
+		#AA{width: 1300px;height: 700px;float: left;box-shadow: 0px 0px 35px 0px #6495ED;z-index: 1;}
+		/* body{background-size: 100%; *//* background:-webkit-linear-gradient(right,#6495ED,pink); background-size: 50%; *//* } */
+			#a1{width: 100%;height: 250px;float: left;padding-left: 0px;font-size: x-large;padding-top: 0px;z-index: 1;background:#6495ED/* -webkit-linear-gradient(left,#6495ED) */; background-size: 100%;border-radius: 0px 0px 40% 40%/0px 0px 90px 90px;}
+			#a2{width: 30%;height: 400px;float: left;position: absolute;left: 15%;top: 150px;z-index: 2;}
+			#a4{width: 400px;height: 400px;float: left;border-radius: 0px 27px 27px 0px;background-color:white;
+			text-align: center;box-shadow: 0px 0px 35px 0px #6495ED;position: absolute;left: 45%;top: 150px;z-index: 2;}
+			.i2{border-radius: 10px 10px 10px 10px;height: 30px;width: 230px;}
+			#i3,#ii3{border-radius: 20px 20px 20px 20px;color: #000000;height: 40px;width: 100px;font-size: large;background-color:white;
+			margin-left: 25px;}
+			#vcode{border-radius: 10px 10px 10px 10px;height: 30px;width: 150px;}
+			#code{background:-webkit-linear-gradient(right,#6495ED,pink,#6495ED,pink);color: white; font-size: 22px;width: 100px;height: 35px;margin-left: 20px;font-family: "楷体";
+			cursor: pointer;padding: 5px;}
+			#shu{border-radius: 27px 0px 0px 27px;box-shadow: 0px 0px 35px 0px #6495ED;}
+		</style>
+		<script src="../js/vue.js"></script>
+		<script src="../js/axios-0.18.0.js"></script>
+		<script src="../plugins/elementui/index.js"></script>
+		<script src="../plugins/font-awesome/css/font-awesome.min.css"></script>
+		<script type="text/javascript" src="../js/jquery1.8.3.min.js"></script>
+	</head>
+	<body onload="changeImg()">
+		<center></center>
+		<div id="AA">
+		<div id="a1">
+			<div id="aa">
+			</div>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<img src="../img/logo_jw_d.png" style="vertical-align: bottom;"><font size="6" ><b>&nbsp;学生信息管理系统服务平台</b></font>
+			
+		</div>
+	
+		<div id="a2">
+			<img src="../img/书本.jpg" align="right" height="400px" id="shu">
+			</div>
+		<div id="a4">
+			<h1>用户登录</h1>
+			<hr width="70%" size="3" color="black">
+			<el-form action="index.html" v-model="formData" onsubmit="return check()">
+				<br>
+				<el-row >
+					<el-col :span="12">
+						<el-form-item style="border-radius: 10px 10px 10px 10px;height: 30px;width: 230px;" label="账号" prop="user">
+	<!--				<el-input v-model="formData.user" class="i2" onkeyup="bbbclick()" onkeypress="if(event.keyCode==13) next(this)"/><br>-->
+						<el-input  v-model="formData.user" /><br>
+						<span></span><br>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<input type="password" name="mima" id="mima" placeholder="密码" class="i2" onkeyup="bbbclick()" onkeypress="if(event.keyCode==13) next(this)"/><br><br>
+				<input type="text" id="vcode" placeholder="验证码" value="验证码" onfocus="this.value=''" onblur="if(this.value=='')this.value='验证码'" /><span id="code" title="看不清，换一张"></span><br><br>
+			<input type="submit" id="i3" value="登录" class="btns" onmouseover="this.style.backgroundColor=''" onmousedown="this.style.backgroundColor='#6495ED'">
+			<input type="reset" id="ii3" value="取消" class="btns" onmouseover="this.style.backgroundColor=''" onmousedown="this.style.backgroundColor='pink'">
+			</el-form><br>
+		</div>
+		</div>
+		</center>
+		<script type="text/javascript">
+			var vue = new Vue({
+				el:"a4",
+				data:{
+					formData:{
+						user:""
+					},
+				},
+				methods:{
+
+				}
+			})
+			function aaaclick()
+			{
+				var l1=document.getElementById("zhanghao").value;
+				var password=document.getElementById("mima").value;
+				document.getElementById("i3").disabled=true;
+				if(l1=="")
+				{alert("账号为空");document.getElementById("i3").disabled=true;}
+				if(password=="")
+				{alert("密码为空");document.getElementById("i3").disabled=true;}
+				if(l1=="aichizhuti"&&password=="123456")
+				{alert("欢迎登录！");window.location.href="index.html";}
+				else
+				{alert("账号或密码不正确");}
+			}
+			function bbbclick()
+			{
+				var l1=document.getElementById("zhanghao").value;
+				var password=document.getElementById("mima").value;
+				if(l1!==""&&password!="")
+				{
+				document.getElementById("i3").disabled=false;
+				}
+			}
+			function next(t)
+			{
+				var sum=document.getElementsByTagName("input");
+				for(var i=0;i<sum.length;i++)
+				{
+					if(i==(sum.length-1))
+					{sum[0].focus();break;}
+					else if(t==sum[i])
+					{
+						sum[i+1].focus();break;
+					}
+				}
+			}
+			var code; //声明一个变量用于存储生成的验证码
+			document.getElementById("code").onclick = changeImg;
+			
+			function changeImg() {
+				var arrays = new Array(
+					'1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+					'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+					'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+					'u', 'v', 'w', 'x', 'y', 'z',
+					'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+					'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+					'U', 'V', 'W', 'X', 'Y', 'Z'
+				);
+				code = ''; //重新初始化验证码
+				//alert(arrays.length);
+				for(var i = 0; i < 4; i++) {
+					var r = parseInt(Math.random() * arrays.length);
+					code += arrays[r];
+				}
+				document.getElementById('code').innerHTML = code; //将验证码写入指定区域
+			}
+			function check() {
+				var input_code = document.getElementById('vcode').value;
+				if(input_code.toLowerCase() == code.toLowerCase()) {
+					alert("欢迎登录~");
+					return true;
+				}
+				alert("请输入正确的验证码!");
+				return false;
+			}
+		</script>
+	</body>
+</html>

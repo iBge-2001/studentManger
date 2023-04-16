@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>用户信息</title>
+		<style type="text/css">
+			#a1{width: 50%;height: 90px;float: left;}
+			#a3{width: 50%;height: 50px;float: left;text-align: right;}
+			#a2{width: 50%;height: 40px;float: left;text-align: right;}
+			#t1{width: 100%;height: 500px;}
+			#tab1{width: 100%;text-align: center;}
+			th{width: 230px;height: 40px;background-color: #6495ED;border: 2px solid #DCDCDC;}
+			td{width: 230px;height: 40px;border: 2px solid #DCDCDC;}
+			tr:hover{background-color: #999999;}
+			#td{border: 3px solid #000000;width: 60px;height: 40px;background-color: #6495ED;}
+			#A2{width: 140px;height: 40px;text-decoration: none;background-color: #6495ED;border: 3px solid #000000;
+			color: #F0F8FF;padding:10px 10px 10px 10px;margin-right: 12%;}
+			a:hover{color: #000000;}
+		</style>
+	</head>
+	<body>
+		<div id="a1">
+			<h2>~~用户信息~~</h2>
+		</div>
+		<div id="a3">
+			
+		</div>
+		<div id="a2">
+			<a href="#" onclick="add()" id="A2">添加用户</a>
+		</div>
+		<div id="t1">
+		<table border="0" cellspacing="0" cellpadding="" id="tab1">
+			<tr>
+				<th>用户账号</th>
+				<th>用户密码</th>
+				<th>操作</th>
+			</tr>
+			<tr>
+				<td>aichizhuti</td>
+				<td>123456</td>
+				<td><a style="color:#6495ED;cursor: pointer;" onclick="updateRow(this);" >修改<a>&nbsp<a style="color:chocolate;cursor:pointer;" onclick="delRow(this);">删除</a></td>
+			</tr>
+		</table>
+		</div>
+		<script type="text/javascript">
+			function add(){
+				var userid=prompt("请输入用户账号：\n");
+				var p=prompt("请输入密码：");
+				var rep=prompt("请确认密码：");
+				if(userid==""||p==""||rep=="")
+				{alert("您没有输入！");}
+				else
+					if(p==rep&&p!=""&&rep!="")
+					{alert("添加用户成功!");}
+					else
+					{alert("(#`O′)未满足要求！");}
+				}
+		</script>
+	</body>
+</html>

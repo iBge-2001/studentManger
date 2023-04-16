@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="../js/vue.js"></script>
+    <script src="../js/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="../plugins/elementui/index.css">
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+
+    <title>宿舍信息</title>
+    <style type="text/css">
+        #a1{width: 30%;height: 90px;float: left;}
+        #a4{width: 70%;height: 90px;float: right;text-align: left;}
+        #f1{padding-top: 2%;padding-left: 20%;}
+        #s1{width: 200px;height: 40px; border: 1px solid #6495ED;border-radius: 6px 6px 6px 6px;}
+        #submit{text-decoration: none;height: 40px;font-size: large;background-color: #6495ED;border: 3px solid #000000;padding: 8px 8px 8px 8px;border-radius: 7px 7px 7px 7px;}
+        #t1{width: 100%;height: 500px;}
+        #tab1{width: 100%;text-align: center;border-color: #6495ED;border: 0px solid #6495ED;}
+        th{border: 1px solid aliceblue;}
+        th{width: 230px;height: 40px;}
+        tr:hover{background-color: #999999;}
+        td{width: 230px;height: 40px;}
+        #td{border: 3px solid #000000;width: 60px;height: 40px;background-color: #6495ED;}
+        #A2{height: 40px;text-decoration: none;background-color: #6495ED;border: 3px solid #000000;
+            margin-left: 12%;padding: 8px 8px 8px 8px;border-radius: 7px 7px 7px 7px;font-size: large;}
+        a:hover{color: #000000;}
+    </style>
+</head>
+<body>
+<div id="app">
+
+        <el-dialog title="编辑检查项" :visible.sync="dialogFormVisible4Edit">
+            <el-form ref="dataAddForm" :model="formData"  label-position="right" label-width="100px">
+                <el-row>
+
+                    <el-col :span="12">
+
+                        <el-form-item label="班级" prop="st_class">
+
+                            <el-input v-model="formData.st_class"/>
+
+                        </el-form-item>
+
+                    </el-col>
+                    <el-col :span="12">
+
+                        <el-form-item label="姓名">
+
+                            <el-input v-model="formData.st_name" prop="st_name"></el-input>
+
+                        </el-form-item>
+
+                    </el-col>
+
+
+                </el-row>
+                <el-row>
+                    <el-col :span="12">
+
+                        <el-form-item label="楼号" prop="buliding_no">
+
+                            <el-input v-model="formData.buliding_no"/>
+
+                        </el-form-item>
+
+                    </el-col>
+
+                    <el-col :span="12">
+
+                        <el-form-item label="宿舍号">
+
+                            <el-input v-model="formData.dormitory_no" prop="dormitory_no"></el-input>
+
+                        </el-form-item>
+
+                    </el-col>
+                </el-row>
+
+            </el-form>
+
+            <div slot="footer" class="dialog-footer">
+
+                <el-button @click="dialogFormVisible4Edit = false">取消</el-button>
+
+                <el-button type="primary" @click="handleEdit()">确定</el-button>
+
+            </div>
+
+        </el-dialog>
+    </div>
+</div>
+</body>
+<script src="../plugins/elementui/index.js"></script>
+<script>
+    var vue = new Vue({
+        el:"#app",
+        data:{
+            pros:[],
+            currentList:{},
+            FuzzyData:"",
+            dialogFormVisible:true,
+            dialogFormVisible4Edit:true,
+            formData:{},
+        },
+        created(){
+            this.select();
+        },
+        methods: {
+            restFrom(){
+                this.formData={};
+            },
+            select(){
+                axios.get("../Dormitory").then((res)=>{
+
+                    this.pros = res.data.data;
+                })
+            },
+            SelectByFuzzy(){
+                alert(this.FuzzyData);
+                axios.get("../students/FuzzySelect/"+this.FuzzyData).then((res)=>{
+                    console.log(res.data.data);
+                    this.pros = res.data.data;
+                })
+            },
+            showAddInput(){
+                this.dialogFormVisible =true;
+                this.restFrom();
+            },
+            handleUpdate(row){
+                var i = parseInt(row.st_id)
+                axios.get("../Dormitory/"+i).then((res)=>{
+                    if(res.data.code === 20041){
+                        this.formData = res.data.data;
+                        this.dialogFormVisible4Edit =true;
+                    }else this.$message.error(res.data.msg);
+                })
+            },
+            handleDelete(row) {
+                //1.弹提示框
+                this.$confirm("此操作永久删除数据，是否继续？", "提示", {
+                    type: 'info'
+                }).then(() => {
+                    axios.delete("/students/" + row.st_id).then((res) => {
+                        if (res.data.code == 20021) {
+                            //2、做删除业务
+                            this.$message.success("删除成功")
+                        } else {
+                            this.$message.error("删除失败");
+                        }
+                    })
+                }).catch(() => {
+                    //3、取消删除操作
+                    this.$message.info("取消删除操作");
+                }).finally(() => {
+                    this.SelectByPro();
+                });
+            },
+
+        }
+    })
+</script>
+
+</html>
