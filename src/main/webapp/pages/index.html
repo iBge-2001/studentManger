@@ -178,6 +178,20 @@ $(function(){
 	});
 })
 </script>
+	<script>
+		let vm = new Vue({
+			el:'',
+			data(){
+				user:localStorage.getItem("user") || ''
+			},
+			mounted(){
+				if (this.user === ''){
+					alert("您还未登录！")
+					window.location.href = '/登录.html'
+				}
+			}
+		})
+	</script>
 	<script language="JavaScript">
 	function custom_close(){
 		if(confirm('确认要关闭页面吗？')==true)
