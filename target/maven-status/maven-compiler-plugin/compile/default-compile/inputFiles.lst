@@ -6,8 +6,10 @@ E:\StudentGradeMangerDemo1\src\main\java\com\lin\service\StudentService.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\service\AcademyService.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\controller\ClassController.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\dao\DormitoryDao.java
+E:\StudentGradeMangerDemo1\src\main\java\com\lin\service\GradeService.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\controller\ProfessionController.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\config\SpringConfig.java
+E:\StudentGradeMangerDemo1\src\main\java\com\lin\dao\GradeDao.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\controller\DormitoryController.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\dao\ClassDao.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\service\DormitoryService.java
@@ -15,6 +17,7 @@ E:\StudentGradeMangerDemo1\src\main\java\com\lin\config\MybatisConfig.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\dao\AcademyDao.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\controller\StudentController.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\domain\Academy.java
+E:\StudentGradeMangerDemo1\src\main\java\com\lin\domain\Grade.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\config\ServletConfig.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\domain\Student.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\config\JdbcConfig.java
@@ -22,6 +25,8 @@ E:\StudentGradeMangerDemo1\src\main\java\com\lin\domain\Dormitory.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\service\impl\ClassServiceImpl.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\controller\Code.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\service\ClassService.java
+E:\StudentGradeMangerDemo1\src\main\java\com\lin\service\impl\GradeServiceImpl.java
+E:\StudentGradeMangerDemo1\src\main\java\com\lin\controller\GradeController.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\dao\StudentDao.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\service\impl\DormitoryServiceImpl.java
 E:\StudentGradeMangerDemo1\src\main\java\com\lin\controller\Result.java

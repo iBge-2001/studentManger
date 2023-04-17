@@ -21,4 +21,5 @@ public class GradeController {
         return new Result(code,course,msg);
     }
 
+
 }

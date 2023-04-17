@@ -44,20 +44,28 @@
 			.a10 .a9{width: 70px;height: 20px;background-color: #fff;position: absolute;left:200px;bottom:0px;}
 			.a10{width: 100%;height: 50px;margin-top: 0px;background-color:#dcdcdc;float: left;font-size:larger;padding-left:20px;}
 		</style>
+		<script src="../js/vue.js"></script>
+		<script src="../js/axios-0.18.0.js"></script>
+		<script src="../plugins/elementui/index.js"></script>
+		<script src="../plugins/font-awesome/css/font-awesome.min.css"></script>
+		<script type="text/javascript" src="../js/jquery1.8.3.min.js"></script>
 	</head>
 	<body>
 		<div id="a1">
 			<h2>~~成绩信息~~</h2>
 		</div>
-		<div id="a3">
-			
-		</div>
 		<div id="a2">
-			<select name="">
-				<option value="">计算机科学与技术</option>
-				<option value ="">物联网</option>
-				<option value ="">大数据</option>
-			</select>
+<!--			<select name="">-->
+<!--				<option value="">计算机科学与技术</option>-->
+<!--				<option value ="">物联网</option>-->
+<!--				<option value ="">大数据</option>-->
+<!--			</select>-->
+			<div >
+				<select v-model ="Selection" @change="SelectByPro(Selection)" style="position: absolute;right:0" >
+					<option disabled value="">请选择</option>
+					<option v-for="emp in emps" :value="emp.profession_name">{{emp.profession_name}}</option>
+				</select>
+			</div>
 			<a href="#" onclick="javascript:showAddInput();" id="add">添加信息</a>
 		</div>
 		<div class="table" >
@@ -104,7 +112,10 @@
 			 <input type="button" value="取消" onclick="hideAddInput()" id="btn_ext"></center>
 			</form>
 		</div>
+		<script src="../plugins/elementui/index.js"></script>
 		<script type="text/javascript">
+
+
 		var row = 0 ; //定义全局行数用于修改
 		var reg_name = /^((\w*\d\w*[a-z]\w*)|(\w*[a-z]\w*\d\w*))$/i; //用于判断用户名格式
 		var reg_chinese = /^[\u0391-\uFFE5]+$/ ; //用于判断姓名格式
@@ -267,6 +278,29 @@
 		 hideAddInput();
 		 }
 		}
+		var vue = new Vue({
+			el:'#a2',
+			data:{
+				emps:[],
+				Selection:"",
+			},
+			created() {
+				this.GetSelectProfession();
+			},
+			methods:{
+				GetSelectProfession(){
+					// axios.get("../profession").then((res)=>{
+					axios.get("../profession").then((res)=>{
+						this.emps = res.data.data;
+					})
+				},SelectByPro(){
+					axios.get("../Grade/Course/"+this.Selection).then((res)=>{
+						console.log(res.data.data);
+						this.pros = res.data.data;
+					})
+				},
+			}
+		})
 		</script>
 	</body>
 </html>
