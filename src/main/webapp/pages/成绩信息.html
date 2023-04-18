@@ -76,11 +76,13 @@
 			 <el-table  border="1" cellspacing="" label-width="10px"  cellpadding="" size="small" current-row-key="id" :data="grades" stripe highlight-current-row>
 				 <el-table-column prop="st_id" label="编号" align="center" ></el-table-column>
 				 <el-table-column prop="st_name" label="姓名" align="center"></el-table-column>
-				 <el-table-column v-for="item in pros" :label="item">
+				 <el-table-column v-for="item in pros" :label="item" align="center">
 					<template slot-scope ='scope' >
 						<span >{{scope.row[item]}}</span>
 					</template>
 				 </el-table-column>
+				 <el-table-column prop="平均分" label="平均分" align="center"></el-table-column>
+				 <el-table-column prop="总分" label="总分" align="center"></el-table-column>
 				 <el-table-column label="操作" align="center">
 					 <template slot-scope="scope">
 						 <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
