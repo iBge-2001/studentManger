@@ -78,7 +78,7 @@
 				 <el-table-column prop="st_name" label="姓名" align="center"></el-table-column>
 					<el-table-column v-for="item in pros" :label="item">
 					 <template slot-scope ='scope' >
-						 <span >{{scope.row}}</span>
+						 <span >{{JSON.parse(scope.row)[item]}}</span>
 					 </template>
 				 </el-table-column>
 				 <el-table-column label="操作" align="center">
