@@ -4,8 +4,8 @@
 		<meta charset="utf-8">
 		<title>成绩信息</title>
 		<style type="text/css">
-			#a1{width: 30%;height: 90px;float: left;}
-			#a2{width: 55%;height: 40px;float: left;text-align: right;padding-top: 35px;}
+			#a1{width: 30%;height: 90px;float: left;margin-top: 10px;}
+			#a2{width: 100%;height: 40px;text-align: right;padding-top: 1px;}
 			#t1{width: 100%;height: 500px;}
 			#table{width: 100%;text-align: center;border-color: #6495ED;border: 0px solid #6495ED;}
 			.table{width: 80%;float: left;}
@@ -40,6 +40,7 @@
 			#h3 :hover{background-color: #DCDCDC;}
 			#aa2{float: left;width: 15%;}
 			#aa3{width: 80%;height: 320px;float: left;}
+			#B2{height: 40px;text-decoration: none;background-color: #6495ED;border: 1px solid #000000;margin-right: 10%}
 			#shu{height: 320px;}
 			.a10 .a9{width: 70px;height: 20px;background-color: #fff;position: absolute;left:200px;bottom:0px;}
 			.a10{width: 100%;height: 50px;margin-top: 0px;background-color:#dcdcdc;float: left;font-size:larger;padding-left:20px;}
@@ -47,7 +48,9 @@
 		<script src="../js/vue.js"></script>
 		<script src="../js/axios-0.18.0.js"></script>
 		<script src="../plugins/elementui/index.js"></script>
-		<script src="../plugins/font-awesome/css/font-awesome.min.css"></script>
+		<link rel="stylesheet" href="../plugins/elementui/index.css">
+		<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/style.css">
 		<script type="text/javascript" src="../js/jquery1.8.3.min.js"></script>
 	</head>
 	<body>
@@ -61,40 +64,33 @@
 <!--				<option value ="">大数据</option>-->
 <!--			</select>-->
 			<div >
-				<select v-model ="Selection" @change="SelectByPro(Selection)" style="position: absolute;right:0" >
+				<select v-model ="Selection" @change="SelectCourseByPro(Selection)" style="position: absolute;right:0" >
 					<option disabled value="">请选择</option>
 					<option v-for="emp in emps" :value="emp.profession_name">{{emp.profession_name}}</option>
 				</select>
+				<el-button id="B2" @click="showAddInput()" style="font-size: large">添加学生</el-button>
 			</div>
-			<a href="#" onclick="javascript:showAddInput();" id="add">添加信息</a>
-		</div>
-		<div class="table" >
+
+			<div class="table">
 		 <table border="1" style="text-align:center" id="table" cellspacing="0">
-		 <tr>
-		<th>编号</th>
-		 <th>姓名</th>
-		 <th>高等数学</th>
-		 <th>英语</th>
-		 <th>计算机网络技术</th>
-		 <th>操作</th>
-		 </tr>
-		 <tr>
-		 <td>01</td>
-		 <td>aaa</td>
-		 <td>89</td>
-		 <td>82</td>
-		 <td>98</td>
-		 <td><a style="color:#6495ED;cursor: pointer;" onclick="updateRow(this);" id="xiu">修改<a>&nbsp<a style="color:chocolate;cursor:pointer;" onclick="delRow(this);" id="xiu2">删除</a></td>
-		 </tr>
-		 <tr>
-		<td>02</td>
-		<td>bbb</td>
-		<td>86</td>
-		<td>78</td>
-		<td>89</td>
-		 <td><a style="color:#6495ED;cursor:pointer;" onclick="updateRow(this);" id="xiu">修改<a>&nbsp<a style="color:chocolate;cursor:pointer;" onclick="delRow(this);" id="xiu2">删除</a></td>
-		 </tr>
+			 <el-table  border="1" cellspacing="" label-width="10px"  cellpadding="" size="small" current-row-key="id" :data="grades" stripe highlight-current-row>
+				 <el-table-column prop="st_id" label="编号" align="center" ></el-table-column>
+				 <el-table-column prop="st_name" label="姓名" align="center"></el-table-column>
+					<el-table-column v-for="item in pros" :label="item">
+					 <template slot-scope ='scope' >
+						 <span >{{scope.row}}</span>
+					 </template>
+				 </el-table-column>
+				 <el-table-column label="操作" align="center">
+					 <template slot-scope="scope">
+						 <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
+						 <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
+					 </template>
+
+				 </el-table-column>
+			 </el-table>
 		 </table>
+			</div>
 		</div>
 		<div id="addinfo" style="display: none;">
 			<form action="" method="" id="form1">
@@ -115,174 +111,13 @@
 		<script src="../plugins/elementui/index.js"></script>
 		<script type="text/javascript">
 
-
-		var row = 0 ; //定义全局行数用于修改
-		var reg_name = /^((\w*\d\w*[a-z]\w*)|(\w*[a-z]\w*\d\w*))$/i; //用于判断用户名格式
-		var reg_chinese = /^[\u0391-\uFFE5]+$/ ; //用于判断姓名格式
-		var reg_pass = /^((\w*\d\w*[a-z]\w*)|(\w*[a-z]\w*\d\w*))$/i;//用于判断密码格式
-		var reg_s=/^[1-9]{1,2}\d?$/;
-		//----获取行号-----
-		function getRow(r){
-		 var i=r.parentNode.parentNode.rowIndex; 
-		 return i ;
-		}
-		//----获取行号-----
-		 
-		//----删除某一行-----
-		function delRow(r){ 
-		 document.getElementById('table').deleteRow(getRow(r));
-		}
-		//----删除某一行-----
-		 
-		//----清除添加信息框的内容-----
-		function cleanAddInput(){
-		 document.getElementById('s1').value='';
-		 document.getElementById('s2').value=''; 
-		 document.getElementById('s3').value='';
-		 document.getElementById('name').value='';
-		 document.getElementById('bid').value='';
-		}
-		//----清除添加信息框的内容-----
-		 
-		//----显示添加信息框-----
-		function showAddInput(){
-		 document.getElementById('addinfo').style="display:block-inline" ;
-		 document.getElementById('btn_add').style="display:block-inline" ;
-		 document.getElementById('btn_update').style="display:none" ;
-		 cleanAddInput(); 
-		}
-		//----显示添加信息框-----
-		 
-		//----隐藏添加信息框-----
-		function hideAddInput(){
-		 document.getElementById('addinfo').style="display:none" ;
-		 
-		}
-		//----隐藏添加信息框-----
-		 
-		//----判断输入框的信息是否符合要求-----
-		function judge(){
-		 //根据id获取表单信息
-		 var s1= document.getElementById('s1').value;
-		 var s2 = document.getElementById('s2').value; 
-		 var name = document.getElementById('name').value;
-		 var s3 = document.getElementById('s3').value;
-		 var bid=document.getElementById('bid').value;
-		 var judge = true ; //用于判断表单信息是否符合
-		 if(s1==''){
-		 judge = false ;
-		 alert('请输入第三列成绩');
-		 }else if(s2==''){
-		 judge = false ;
-		 alert('请输入第四列成绩');
-		 }else if(name==''){
-		 judge = false ;
-		 alert('请输入姓名');
-		 }else if(bid==''){
-		 judge = false ;
-		 alert('请输入编号');
-		 }else if(s3==''){
-		 judge = false ;
-		 alert('请输入第五列成绩');
-		 }else if(!reg_s.test(s1)|!reg_s.test(s2)|!reg_s.test(s3))
-		 {
-			 judge = false ;
-			 alert('请输入正确成绩信息(1-100)');
-		 }else if(s1>100|s2>100|s3>100)
-		 {			 judge = false ;
-			 alert('请输入一百以内成绩');
-		 }
-		 return judge ;
-		}
-		//----判断输入框的信息是否符合要求-----
-		 
-		//----新增信息的插入方法-----
-		function insertInfo(){
-		 //根据id获取表单信息
-		 var arr = new Array();
-		 arr[0] = document.getElementById('bid').value;
-		 arr[1] = document.getElementById('name').value; 
-		 arr[2] = document.getElementById('s1').value;
-		 arr[3] = document.getElementById('s2').value;
-		 arr[4] = document.getElementById('s3').value;
-		 arr[5] ="<a style='text-align:center;color:#6495ED;cursor:pointer;' onclick='updateRow(this);' id='xiu'>修改</a>&nbsp<a style='text-align:center;color:chocolate;cursor:pointer;' onclick='delRow(this);'id='xiu2'>删除</a>";
-		 var x = document.getElementById('table').insertRow(1); //获取第一行对象
-		  
-		 for(var i=0;i<arr.length;i++){
-		 x.insertCell(i).innerHTML = arr[i] ; //用循环把每个数据插入第一行的每一列
-		 }
-		  
-		}
-		//----新增信息的插入方法-----
-		 
-		//----新增信息-----
-		function addInfo(){
-		  
-		 if(judge()==true){
-		 alert('添加成功');
-		 insertInfo(); //执行插入
-		 hideAddInput(); //隐藏添加信息框
-		  
-		 }else{
-		 alert('添加失败');
-		 }
-		}
-		//----新增信息-----
-		 
-		 
-		//----根据行号修改信息-----
-		function updateRow(r){
-		 row = getRow(r); //把该行号赋值给全局变量
-		 showAddInput(); //显示修改表单
-		 //提交按钮替换
-		 document.getElementById('btn_add').style="display:none" ;
-		 document.getElementById('btn_update').style="display:block-inline" ;
-		 insertInputFromQuery(queryInfoByRow(row));
-		  
-		}
-		//----根据行号修改信息-----
-		 
-		 
-		//----根据行号查信息----
-		function queryInfoByRow(r){
-		  
-		 var arr = new Array();
-		 for(var m=0; m<6;m++){
-		 arr[m] = document.getElementById('table').rows[row].cells[m].innerText;
-		 }
-		 return arr ; //返回该行数据
-		  
-		}
-		//----根据行号查信息----
-		 
-		//----把查询到的信息放入修改的表单里----
-		function insertInputFromQuery(arr){
-			document.getElementById('bid').value = arr[0];
-		 document.getElementById('name').value = arr[1];
-		 document.getElementById('s1').value = arr[2];
-		 document.getElementById('s2').value = arr[3];
-		 document.getElementById('s3').value = arr[4];
-		  
-		}
-		//----把查询到的信息放入修改的表单里----
-		 
-		 
-		function updateInfo(){
-		 if(judge()==true){
-		 alert('修改成功');
-		 document.getElementById('table').deleteRow(row);//删除原来那行 
-		 insertInfo(); //插入修改后的值
-		 hideAddInput(); //隐藏添加模块
-		 }else{
-		 alert('修改失败');
-		 hideAddInput();
-		 }
-		}
 		var vue = new Vue({
 			el:'#a2',
 			data:{
 				emps:[],
 				Selection:"",
+				pros:[],
+				grades:[],
 			},
 			created() {
 				this.GetSelectProfession();
@@ -293,10 +128,18 @@
 					axios.get("../profession").then((res)=>{
 						this.emps = res.data.data;
 					})
-				},SelectByPro(){
+				},
+				SelectCourseByPro(){
 					axios.get("../Grade/Course/"+this.Selection).then((res)=>{
 						console.log(res.data.data);
 						this.pros = res.data.data;
+					})
+					this.SelectgradeBycourse();
+				},
+				SelectgradeBycourse(){
+					axios.get("../Grade/"+this.Selection).then((res)=>{
+						console.log(res.data.data);
+						this.grades = res.data.data;
 					})
 				},
 			}

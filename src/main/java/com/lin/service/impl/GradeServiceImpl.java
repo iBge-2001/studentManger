@@ -12,8 +12,15 @@ import java.util.List;
 public class GradeServiceImpl implements GradeService {
     @Autowired
     private GradeDao gradeDao;
+
+    @Override
+    public List<Grade> GetAll(String st_profession) {
+        return gradeDao.GetAll(st_profession);
+    }
+
     @Override
     public List<String> GetCourse(String st_profession) {
         return gradeDao.GetCourse(st_profession);
     }
+
 }
