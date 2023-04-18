@@ -102,10 +102,15 @@ margin-top: 15px;background-color: #6495ED;}
 		<script src="../js/vue.js"></script>
 		<script src="../js/axios-0.18.0.js"></script>
 		<script src="../plugins/elementui/index.js"></script>
-		<script src="../plugins/font-awesome/css/font-awesome.min.css"></script>
 		<script type="text/javascript" src="../js/jquery1.8.3.min.js"></script>
+		<link rel="stylesheet" href="../plugins/elementui/index.css">
+		<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="https://unpkg.com/element-ui@2.15.13/lib/theme-chalk/index.css">
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 
 	</head>
+
 	<body>
 		<h1><font style="color: #666;">~~首页~~</font></h1>
 		<div id="a3">
@@ -131,121 +136,66 @@ margin-top: 15px;background-color: #6495ED;}
 			</div></center>
 		</div>
 		<div id="a2">
-			<div class="month">
-			<center>
-			  <ul>
-			    <li class="prev"><span style="font-size: 28px;">❮</span></li>
-			    <li class="next"><span style="font-size: 28px;">❯</span></li>
-			    <li style="text-align:center">
-			      <span style="font-size: 28px;">April</span><br>
-			      <span  style="font-size:28px">2023</span>
-			    </li>
-			  </ul></center>
-			</div>
-			 
-			<ul class="weekdays">
-			  <li>Mo</li>
-			  <li>Tu</li>
-			  <li>We</li>
-			  <li>Th</li>
-			  <li>Fr</li>
-			  <li>Sa</li>
-			  <li>Su</li>
-			</ul>
-			 
-			<ul class="days">  
-			  <li>1</li>
-			  <li>2</li>
-			  <li>3</li>
-			  <li>4</li>
-			  <li>5</li>
-			  <li>6</li>
-			  <li>7</li>
-			  <li>8</li>
-			  <li>9</li>
-			  <li>10</li>
-			  <li>11</li>
-			  <li>12</li>
-			  <li>13</li>
-			  <li>14</li>
-			  <li>15</li>
-			  <li>16</li>
-			  <li>17</li>
-			  <li>18</li>
-			  <li>19</li>
-			  <li>20</li>
-			  <li>21</li>
-			  <li>22</li>
-			  <li>23</li>
-			  <li>24</li>
-			  <li><span class="active">25</span></li>
-			  <li>26</li>
-			  <li>27</li>
-			  <li>28</li>
-			  <li>29</li>
-			  <li>30</li>
-			  <li>31</li>
-			</ul>
+
+					<el-calendar v-model="value">
+					</el-calendar>
+
 		</div>
 		<div id="a1">
 			<font size="4" color="#6495ED">班级总数</font>
 			<hr color="#666" size="2" width="30%" align="left">
-			<center>
+
 			<div id="btoom1">
 			<b>222个</b>
 			<div id="biao">
 				<b>Ⅲ</b>
 			</div>
-			</div></center>
+			</div>
 		</div>
 		<div id="a3">
 			<font size="4" color="white">班级均人数</font>
 			<hr color="#666" size="2" width="30%" align="left">
-			<center>
 			<div id="btoom">
 			<b>56人</b>
 			<div id="biao">
 				<b>Ⅳ</b>
 			</div>
-			</div></center>
+			</div>
 		</div>
 		<div id="a3">
 			<font size="4" color="white">空闲教室个数</font>
 			<hr color="#666" size="2" width="30%" align="left">
-			<center>
+
 			<div id="btoom">
 			<b>32个</b><div id="biao">
 				<b>Ⅴ</b>
 			</div>
-			</div></center>
+			</div>
 		</div>
 		<div id="a1">
 			<font size="4" color="#6495ED">违规违纪人数</font>
 			<hr color="#666" size="2" width="30%" align="left">
-			<center>
 			<div id="btoom1">
 			<b>18人</b>
 			<div id="biao">
 				<b>Ⅵ</b>
 			</div>
-			</div></center>
+			</div>
 		</div>
+		<!-- 引入组件库 -->
+		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 	<script>
 		var vue = new Vue({
 			el:'#a2',
 			data:{
-				year:"",
-				month:"",
+			value:null,
 			},
 			created(){
 				this.mGetDate();
 			},
 			methods:{
 				 mGetDate(){
-					var date = new Date();
-					var year = date.getFullYear();
-					var month = date.getMonth()+1;
-
+				this.value=new Date();
 				}
 			}
 		})

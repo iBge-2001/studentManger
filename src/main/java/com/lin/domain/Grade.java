@@ -4,12 +4,13 @@ public class Grade {
     private long st_id;
     private String st_name;
     private String st_profession;
-    private int garde;
     private String course;
     private String 物联网概论;
     private String java高级开发;
-    private  String 总分;
-    private  String 平均分;
+    private String 数据库;
+    private String java基础;
+    private  Double 总分;
+    private  Double 平均分;
 
     @Override
     public String toString() {
@@ -17,55 +18,14 @@ public class Grade {
                 "st_id=" + st_id +
                 ", st_name='" + st_name + '\'' +
                 ", st_profession='" + st_profession + '\'' +
-                ", garde=" + garde +
                 ", course='" + course + '\'' +
                 ", 物联网概论='" + 物联网概论 + '\'' +
                 ", java高级开发='" + java高级开发 + '\'' +
-                ", 总分='" + 总分 + '\'' +
-                ", 平均分='" + 平均分 + '\'' +
+                ", 数据库='" + 数据库 + '\'' +
+                ", java基础='" + java基础 + '\'' +
+                ", 总分=" + 总分 +
+                ", 平均分=" + 平均分 +
                 '}';
-    }
-
-    public String get物联网概论() {
-        return 物联网概论;
-    }
-
-    public void set物联网概论(String 物联网概论) {
-        this.物联网概论 = 物联网概论;
-    }
-
-    public String getJava高级开发() {
-        return java高级开发;
-    }
-
-    public void setJava高级开发(String java高级开发) {
-        this.java高级开发 = java高级开发;
-    }
-
-    public String get总分() {
-        return 总分;
-    }
-
-    public void set总分(String 总分) {
-        this.总分 = 总分;
-    }
-
-    public String get平均分() {
-        return 平均分;
-    }
-
-    public void set平均分(String 平均分) {
-        this.平均分 = 平均分;
-    }
-
-    public Grade(long st_id, String st_name, String st_profession, String 物联网概论, String java高级开发, String 总分, String 平均分) {
-        this.st_id = st_id;
-        this.st_name = st_name;
-        this.st_profession = st_profession;
-        this.物联网概论 = 物联网概论;
-        this.java高级开发 = java高级开发;
-        this.总分 = 总分;
-        this.平均分 = 平均分;
     }
 
     public long getSt_id() {
@@ -92,14 +52,6 @@ public class Grade {
         this.st_profession = st_profession;
     }
 
-    public int getGarde() {
-        return garde;
-    }
-
-    public void setGarde(int garde) {
-        this.garde = garde;
-    }
-
     public String getCourse() {
         return course;
     }
@@ -108,11 +60,67 @@ public class Grade {
         this.course = course;
     }
 
-    public Grade(long st_id, String st_name, String st_profession, int garde, String course) {
+    public String get物联网概论() {
+        return 物联网概论;
+    }
+
+    public void set物联网概论(String 物联网概论) {
+        this.物联网概论 = 物联网概论;
+    }
+
+    public String getJava高级开发() {
+        return java高级开发;
+    }
+
+    public void setJava高级开发(String java高级开发) {
+        this.java高级开发 = java高级开发;
+    }
+
+    public String get数据库() {
+        return 数据库;
+    }
+
+    public void set数据库(String 数据库) {
+        this.数据库 = 数据库;
+    }
+
+    public String getJava基础() {
+        return java基础;
+    }
+
+    public void setJava基础(String java基础) {
+        this.java基础 = java基础;
+    }
+
+    public Double get总分() {
+        return 总分;
+    }
+
+    public void set总分(Double 总分) {
+        this.总分 = 总分;
+    }
+
+    public Double get平均分() {
+        return 平均分;
+    }
+
+    public void set平均分(Double 平均分) {
+        this.平均分 = 平均分;
+    }
+
+    public Grade() {
+    }
+
+    public Grade(long st_id, String st_name, String st_profession, String course, String 物联网概论, String java高级开发, String 数据库, String java基础, Double 总分, Double 平均分) {
         this.st_id = st_id;
         this.st_name = st_name;
         this.st_profession = st_profession;
-        this.garde = garde;
         this.course = course;
+        this.物联网概论 = 物联网概论;
+        this.java高级开发 = java高级开发;
+        this.数据库 = 数据库;
+        this.java基础 = java基础;
+        this.总分 = 总分;
+        this.平均分 = 平均分;
     }
 }
