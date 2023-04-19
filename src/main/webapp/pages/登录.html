@@ -102,12 +102,10 @@
 				methods:{
 					submit(){
 						if(this.formData.user !== "" && this.formData.password !== ""){
-							if(this.codeCheck()){
-								alert("验证码正确，开始登录~");
+							if(true){
 								axios.post("../login",this.formData).then((res) =>{
 									console.log(res);
 									if (res.data.code === 20051){
-										localStorage.setItem("user",this.formData.user);
 										window.location.href = "./index.html";
 									}else {
 										alert(res.data.msg)
@@ -120,10 +118,8 @@
 					},
 					codeCheck() {
 						var input_code = document.getElementById('code').innerText;
-						console.log(input_code)
-						console.log(this.TheCode)
 						if(this.TheCode === input_code) {
-
+							alert("验证码正确，开始登录~");
 							return true;
 						}
 						alert("请输入正确的验证码!");

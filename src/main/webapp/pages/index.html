@@ -98,7 +98,7 @@
 	<div id="a2">
 		<center>
 		<div id="aa1">
-			<a href="#" onclick="custom_close()"><span id="top"><b>退出页</b></span></a>
+			<a href="#" @click.pravent="logout()"><span id="top"><b>退出登录</b></span></a>
 		</div>
 		<div id="aa2">
 			<a href="#" id="btn"><span id="top"><b>个性化</b></span></a>
@@ -165,6 +165,8 @@
 <!-- 引入 jQuery -->
 <script src="../js/jquery1.8.3.min.js"></script>
 <script src="../js/easing.js"></script>
+	<script src="../js/vue.js"></script>
+	<script src="../js/axios-0.18.0.js"></script>
 <script>
 //等待dom元素加载完毕.
 $(function(){
@@ -180,14 +182,23 @@ $(function(){
 </script>
 	<script>
 		let vm = new Vue({
-			el:'',
-			data(){
-				user:localStorage.getItem("user") || ''
+			el:'#a2',
+			data:{
+				user:''
 			},
 			mounted(){
-				if (this.user === ''){
-					alert("您还未登录！")
-					window.location.href = '/登录.html'
+				axios.get("../login").then((res)=>{
+					console.log(res)
+					if (res.data.data === null){
+						window.location.href = './登录.html'
+					}
+				})
+			},
+			methods:{
+				logout(){
+					axios.get("../login/logout").then((res)=>{
+						window.location.href = './登录.html'
+					})
 				}
 			}
 		})
