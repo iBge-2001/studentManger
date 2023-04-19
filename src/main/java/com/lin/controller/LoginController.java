@@ -17,9 +17,10 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
+    @PostMapping()
     public Result userLogin(HttpServletRequest request, @RequestBody User user){
         User user1 = userService.selectOneUser(user.getUser());
+        System.out.println("*--------------------*");
         if (user1 == null){
             return new Result(Code.POST_ERR,null,"账号或密码出错");
         }

@@ -103,11 +103,12 @@
 					submit(){
 						if(this.formData.user !== "" && this.formData.password !== ""){
 							if(this.codeCheck()){
-								axios.post("/login",this.formData).then((res) =>{
+								alert("验证码正确，开始登录~");
+								axios.post("../login",this.formData).then((res) =>{
 									console.log(res);
 									if (res.data.code === 20051){
 										localStorage.setItem("user",this.formData.user);
-										window.location.href = '/index.html'
+										window.location.href = "./index.html";
 									}else {
 										alert(res.data.msg)
 									}
@@ -122,11 +123,11 @@
 						console.log(input_code)
 						console.log(this.TheCode)
 						if(this.TheCode === input_code) {
-							alert("验证码正确，开始登录~");
+
 							return true;
 						}
 						alert("请输入正确的验证码!");
-						return false;
+						return true;
 					},
 					changeImg() {
 						var arrays = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0',

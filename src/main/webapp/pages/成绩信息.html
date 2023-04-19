@@ -58,11 +58,6 @@
 			<h2>~~成绩信息~~</h2>
 		</div>
 		<div id="a2">
-<!--			<select name="">-->
-<!--				<option value="">计算机科学与技术</option>-->
-<!--				<option value ="">物联网</option>-->
-<!--				<option value ="">大数据</option>-->
-<!--			</select>-->
 			<div >
 				<select v-model ="Selection" @change="SelectCourseByPro(Selection)" style="position: absolute;right:0" >
 					<option disabled value="">请选择</option>
@@ -94,22 +89,7 @@
 		 </table>
 			</div>
 		</div>
-		<div id="addinfo" style="display: none;">
-			<form action="" method="" id="form1">
-			 <div style="text-align: center;"><div id="h4"> <b>~~请添加信息~~</b></div></div><div id="h3">
-			 	<span style=" color: black;cursor:pointer;" onclick="hideAddInput()" id="span1">×</span> 
-			 </div> <br><center>
-			 <input type="text" id="bid"  placeholder="请输入编号"/><br>
-			 <input type="text" id="name" placeholder="请输入姓名"/><br>
-			 <input type="text" id="s1" placeholder="请输入成绩"/><br>
-			 <input type="text" id="s2" placeholder="请输入成绩"/><br>
-			 <input type="text" id="s3" placeholder="请输入成绩"/><br>
-			 <br><var></var>
-			 <input type="button" value="提交" onclick="addInfo()" id="btn_add" >
-			 <input type="button" value="提交" onclick="updateInfo()" style="display:none" id="btn_update">
-			 <input type="button" value="取消" onclick="hideAddInput()" id="btn_ext"></center>
-			</form>
-		</div>
+
 		<script src="../plugins/elementui/index.js"></script>
 		<script type="text/javascript">
 
