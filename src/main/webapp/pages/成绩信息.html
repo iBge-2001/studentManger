@@ -68,7 +68,7 @@
 
 			<div class="table">
 		 <table border="1" style="text-align:center" id="table" cellspacing="0">
-			 <el-table  border="1" cellspacing="" label-width="10px"  cellpadding="" size="small" current-row-key="id" :data="grades" stripe highlight-current-row>
+			 <el-table  border="1" cellspacing="" label-width="10px"  cellpadding="" size="small" current-row-key="id" :data="grades.slice((currentPage-1)*pageSize,currentPage*pageSize)" stripe highlight-current-row>
 				 <el-table-column prop="st_id" label="编号" align="center" ></el-table-column>
 				 <el-table-column prop="st_name" label="姓名" align="center"></el-table-column>
 				 <el-table-column v-for="item in pros" :label="item" align="center">
@@ -86,7 +86,11 @@
 
 				 </el-table-column>
 			 </el-table>
+			 <div style="text-align:center">
+			 <el-pagination hide-on-single-page background layout="prev, pager, next,total" :total="listLength" :page-size="pageSize" @current-change="current_change"></el-pagination>
+		 </div>
 		 </table>
+
 			</div>
 		</div>
 
@@ -100,11 +104,21 @@
 				Selection:"",
 				pros:[],
 				grades:[],
+				pageSize:12,//指定展示多少条
+				currentPage:1 //当前页码
+			},
+			computed:{
+				listLength:function (){
+					return this.grades.length
+				}
 			},
 			created() {
 				this.GetSelectProfession();
 			},
 			methods:{
+				current_change(currentPage){
+					this.currentPage = currentPage;
+				},
 				GetSelectProfession(){
 					// axios.get("../profession").then((res)=>{
 					axios.get("../profession").then((res)=>{
