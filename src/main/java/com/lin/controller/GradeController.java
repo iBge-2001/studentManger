@@ -5,6 +5,7 @@ import com.lin.service.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -12,10 +13,10 @@ import java.util.List;
 public class GradeController {
     @Autowired
     private GradeService gradeService;
-
+    public static List<String> course = null;
     @GetMapping("/Course/{st_profession}")
     public Result getCourse(@PathVariable String st_profession){
-         List<String> course= gradeService.GetCourse(st_profession);
+         course= gradeService.GetCourse(st_profession);
         Integer code = course !=null ? Code.GET_OK:Code.GET_ERR;
         String msg = course!=null ? "查询成功" :"查询失败";
         System.out.println(course!=null ? "查询成功" :"查询失败");
@@ -23,11 +24,11 @@ public class GradeController {
     }
     @GetMapping("/{st_profession}")
     public Result getAll(@PathVariable String st_profession){
-        List<Grade> course= gradeService.GetAll(st_profession);
-        Integer code = course !=null ? Code.GET_OK:Code.GET_ERR;
-        String msg = course!=null ? "查询成功" :"查询失败";
-        System.out.println(course!=null ? "查询成功" :"查询失败");
-        return new Result(code,course,msg);
+        List<Grade> Grade= gradeService.GetAll(st_profession);
+        Integer code = Grade !=null ? Code.GET_OK:Code.GET_ERR;
+        String msg = Grade!=null ? "查询成功" :"查询失败";
+        System.out.println(Grade!=null ? "查询成功" :"查询失败");
+        return new Result(code,Grade,msg);
     }
 
 }

@@ -33,7 +33,7 @@
 			#xiu:hover{color: #BD0A01;}
 			#xiu2{border-radius: 3px 3px 3px 3px;border: 1px solid bisque;padding: 5px;box-shadow: 0px 0px 30px 0px #DCDCDC;background-color:springgreen;}
 			#xiu2:hover{color: #BD0A01;}
-			#h4{width: 94%;float: left;padding-top: 15px;font-size: larger;height: 30px;padding-left: 0px;border-radius: 0px 0px 50% 50%/0px 0px 40px 40px;background-color: #6495ED;}}
+			#h4{width: 94%;float: left;padding-top: 15px;font-size: larger;height: 30px;padding-left: 0px;border-radius: 0px 0px 50% 50%/0px 0px 40px 40px;background-color: #6495ED;}
 			#h3{width: 5%;float: right;height: 20px;padding:0;text-align: right;margin: 0 auto;}
 			/* #h2{width: 100%;float: left;height: 40px;border-radius: 0px 0px 50% 50%/0px 0px 30px 30px;background-color: #6495ED;} */
 			#span1{width: 20px;font-size: x-large;line-height: 10px;}
@@ -60,7 +60,7 @@
 		<div id="a2">
 			<div >
 				<select v-model ="Selection" @change="SelectCourseByPro(Selection)" style="position: absolute;right:0" >
-					<option disabled value="">请选择</option>
+					<option disabled value="计算机">计算机</option>
 					<option v-for="emp in emps" :value="emp.profession_name">{{emp.profession_name}}</option>
 				</select>
 				<el-button id="B2" @click="showAddInput()" style="font-size: large">添加学生</el-button>
@@ -71,10 +71,15 @@
 			 <el-table  border="1" cellspacing="" label-width="10px"  cellpadding="" size="small" current-row-key="id" :data="grades.slice((currentPage-1)*pageSize,currentPage*pageSize)" stripe highlight-current-row>
 				 <el-table-column prop="st_id" label="编号" align="center" ></el-table-column>
 				 <el-table-column prop="st_name" label="姓名" align="center"></el-table-column>
-				 <el-table-column v-for="item in pros" :label="item" align="center">
-					<template slot-scope ='scope' >
-						<span >{{scope.row[item]}}</span>
-					</template>
+<!--				 <el-table-column v-for="item in pros" :label="item" align="center">-->
+<!--					<template slot-scope ='scope' >-->
+<!--						<span v-for="grade in scope.row.listCourse">{{grade.grade}}</span>-->
+<!--					</template>-->
+<!--				 </el-table-column>-->
+				 <el-table-column v-for="(value,index) in pros" :label="value" align="center">
+					 <template slot-scope ='scope' >
+						 <span >{{scope.row.listCourse[index].grade}}</span>
+					 </template>
 				 </el-table-column>
 				 <el-table-column prop="平均分" label="平均分" align="center"></el-table-column>
 				 <el-table-column prop="总分" label="总分" align="center"></el-table-column>
