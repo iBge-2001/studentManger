@@ -48,7 +48,7 @@
 
 							<el-table-column prop="st_name" label="姓名" align="center"></el-table-column>
 
-							<el-table-column prop="buliding_no" label="楼号" align="center"></el-table-column>
+							<el-table-column prop="building_no" label="楼号" align="center"></el-table-column>
 
 							<el-table-column prop="dormitory_no" label="宿舍号" align="center"></el-table-column>
 
@@ -94,9 +94,9 @@
 					<el-row>
 						<el-col :span="12">
 
-							<el-form-item label="楼号" prop="buliding_no">
+							<el-form-item label="楼号" prop="building_no">
 
-								<el-input v-model="formData.buliding_no"/>
+								<el-input v-model="formData.building_no"/>
 
 							</el-form-item>
 
@@ -154,9 +154,9 @@
 					<el-row>
 						<el-col :span="12">
 
-							<el-form-item label="楼号" prop="buliding_no">
+							<el-form-item label="楼号" prop="building_no">
 
-								<el-input v-model="formData.buliding_no"/>
+								<el-input v-model="formData.building_no"/>
 
 							</el-form-item>
 
@@ -212,7 +212,7 @@
 				},
 				SelectByFuzzy(){
 					alert(this.FuzzyData);
-					axios.get("../students/FuzzySelect/"+this.FuzzyData).then((res)=>{
+					axios.get("../Dormitory/FuzzySelect/"+this.FuzzyData).then((res)=>{
 						console.log(res.data.data);
 						this.pros = res.data.data;
 					})

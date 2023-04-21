@@ -11,4 +11,5 @@ public interface DormitoryService {
     public Boolean delete(Integer id);
     public Boolean update(Dormitory dormitory);
     public Dormitory selectById(long id);
+    public List<Dormitory> getFuzzy(Object object);
 }

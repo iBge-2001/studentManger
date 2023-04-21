@@ -5,94 +5,94 @@
 		<title></title>
 		<style type="text/css">
 			#a1{width: 230px;height: 120px;border-radius: 3px 3px 3px 3px;box-shadow: 0px 0px 35px 0px #dcdcdc;float: left;
-			margin-left: 1%;margin-top: 20px;padding: 10px;}
+				margin-left: 1%;margin-top: 20px;padding: 10px;}
 			#a3{width: 23%;height: 120px;border-radius: 3px 3px 3px 3px;box-shadow: 0px 0px 35px 0px #dcdcdc;float: left;
-			margin-left: 1%;margin-top: 20px;background-color: #6495ED;padding: 10px;}
-#a2{width: 50%;height: 410px;border-radius: 23px 23px 23px 23px;box-shadow: 0px 0px 35px 0px #dcdcdc;float: right;
-margin-top: 15px;background-color: #6495ED;}
+				margin-left: 1%;margin-top: 20px;background-color: #6495ED;padding: 10px;}
+			#a2{width: 50%;height: 410px;border-radius: 23px 23px 23px 23px;box-shadow: 0px 0px 35px 0px #dcdcdc;float: right;
+				margin-top: 15px;background-color: #6495ED;}
 			* {box-sizing:border-box;}
 			ul {list-style-type: none;}
 			body {font-family: Verdana,sans-serif;}
 			.month {
-			   padding: 50px 25px;
+				padding: 50px 25px;
 				height: 150px;
-			    width: 100%;
-			    background: #6495ED;
+				width: 100%;
+				background: #6495ED;
 				border-radius: 23px 23px 0px 0px;
 			}
 			.month ul {
-			    margin: 0;
-			    padding: 0;
+				margin: 0;
+				padding: 0;
 			}
-			 
+
 			.month ul li {
-			    color: white;
-			    font-size: 20px;
-			    text-transform: uppercase;
-			    letter-spacing: 3px;
+				color: white;
+				font-size: 20px;
+				text-transform: uppercase;
+				letter-spacing: 3px;
 			}
-			 
+
 			.month .prev {
-			    float: left;
-			   padding-top: 10px;
+				float: left;
+				padding-top: 10px;
 			}
-			 
+
 			.month .next {
-			    float: right;
-			   padding-top: 10px;
+				float: right;
+				padding-top: 10px;
 			}
-			 
+
 			.weekdays {
 				height: 60px;
-			    margin: 0;
-			    padding: 10px 0;
+				margin: 0;
+				padding: 10px 0;
 				line-height: 40px;
-			    background-color: #ddd;
+				background-color: #ddd;
 			}
-			 
+
 			.weekdays li {
-			    display: inline-block;
-			    width: 13%;
-			    color: #666;
-			    text-align: center;
+				display: inline-block;
+				width: 13%;
+				color: #666;
+				text-align: center;
 			}
-			 
+
 			.days {
-			    padding: 10px 0;
+				padding: 10px 0;
 				height: 200px;
 				padding-top: 20px;
-			    background: #eee;
-			    margin: 0;
+				background: #eee;
+				margin: 0;
 			}
-			 
+
 			.days li {
-			    list-style-type: none;
-			    display: inline-block;
-			    width: 13%;
-			    text-align: center;
-			    margin-bottom: 5px;
-			    font-size:16px;
-			    color: #777;
+				list-style-type: none;
+				display: inline-block;
+				width: 13%;
+				text-align: center;
+				margin-bottom: 5px;
+				font-size:16px;
+				color: #777;
 			}
-			 
+
 			.days li .active {
-			    padding: 5px;
-			    background: #6495ED;
-			    color: white !important
+				padding: 5px;
+				background: #6495ED;
+				color: white !important
 			}
-			 
+
 			/* 添加不同尺寸屏幕的样式 */
 			@media screen and (max-width:720px) {
-			    .weekdays li, .days li {width: 13.1%;}
+				.weekdays li, .days li {width: 13.1%;}
 			}
-			 
+
 			@media screen and (max-width: 420px) {
-			    .weekdays li, .days li {width: 12.5%;}
-			    .days li .active {padding: 2px;}
+				.weekdays li, .days li {width: 12.5%;}
+				.days li .active {padding: 2px;}
 			}
-			 
+
 			@media screen and (max-width: 290px) {
-			    .weekdays li, .days li {width: 12.2%;}
+				.weekdays li, .days li {width: 12.2%;}
 			}
 			#i1{height: 220px;}
 			#btoom{width: 100%;height: 40px;margin-top: 40px;font-size: 26px;color: white;}
@@ -103,9 +103,6 @@ margin-top: 15px;background-color: #6495ED;}
 		<script src="../js/axios-0.18.0.js"></script>
 		<script src="../plugins/elementui/index.js"></script>
 		<script type="text/javascript" src="../js/jquery1.8.3.min.js"></script>
-		<link rel="stylesheet" href="../plugins/elementui/index.css">
-		<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="../css/style.css">
 		<link rel="stylesheet" href="https://unpkg.com/element-ui@2.15.13/lib/theme-chalk/index.css">
 		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 
@@ -117,34 +114,33 @@ margin-top: 15px;background-color: #6495ED;}
 			<font size="4" color="white">学院总人数</font>
 			<hr color="#666" size="2" width="30%" align="left">
 			<center>
-			<div id="btoom">
-			<b>1432人</b>
-			<div id="biao">
-				<b>Ⅰ</b>
-			</div>
-			</div></center>
+				<div id="btoom">
+					<b>1432人</b>
+					<div id="biao">
+						<b>Ⅰ</b>
+					</div>
+				</div></center>
 		</div>
 		<div id="a1">
 			<font size="4" color="#6495ED">学院均挂科率</font>
 			<hr color="#666" size="2" width="30%" align="left">
 			<center>
-			<div id="btoom1">
-			<b>0.78%</b>
-			<div id="biao">
-				<b>Ⅱ</b>
-			</div>
-			</div></center>
+				<div id="btoom1">
+					<b>0.78%</b>
+					<div id="biao">
+						<b>Ⅱ</b>
+					</div>
+				</div></center>
 		</div>
-		<div id="a2">
-
-					<el-calendar v-model="value">
+		<div id="a2" >
+				<center>
+			<el-calendar v-model="value">
 					</el-calendar>
-
+				</center>
 		</div>
 		<div id="a1">
 			<font size="4" color="#6495ED">班级总数</font>
 			<hr color="#666" size="2" width="30%" align="left">
-
 			<div id="btoom1">
 			<b>222个</b>
 			<div id="biao">

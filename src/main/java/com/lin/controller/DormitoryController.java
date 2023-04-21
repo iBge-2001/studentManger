@@ -42,4 +42,12 @@ public class DormitoryController {
         System.out.println(flag);
         return new Result(flag? Code.DELETE_OK:Code.DELETE_ERR,flag);
     }
+    @GetMapping("/FuzzySelect/{object}")
+    public Result getByFuzzy(@PathVariable Object object) {
+        System.out.println(object);
+        List<Dormitory> list=  dormitoryService.getFuzzy(object);
+        Integer code = list!=null ? Code.GET_OK:Code.GET_ERR;
+        String msg = list!=null ? "查询成功" :"查询失败";
+        return new Result(code,list,msg);
+    }
 }

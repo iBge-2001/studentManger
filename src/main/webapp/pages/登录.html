@@ -36,8 +36,6 @@
 		<center></center>
 		<div id="AA">
 		<div id="a1">
-			<div id="aa">
-			</div>
 			<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
 			<img src="../img/logo_jw_d.png" style="vertical-align: bottom;"><font size="6" ><b>&nbsp;学生信息管理系统服务平台</b></font>
 			
@@ -101,20 +99,18 @@
 				},
 				methods:{
 					submit(){
-						if(this.formData.user !== "" && this.formData.password !== ""){
-							if(true){
-								axios.post("../login",this.formData).then((res) =>{
-									console.log(res);
-									if (res.data.code === 20051){
-										window.location.href = "./index.html";
-									}else {
-										alert(res.data.msg)
-									}
-								})
+						axios.post("../login",this.formData).then((res) => {
+							if (this.formData.user !== "" && this.formData.password !== "" ) {
+								if (res.data.code === 20051) {
+									window.location.href = "./index.html";
+								} else {
+									alert(res.data.msg)
+								}
+							} else {
+								alert("账号密码不能为空！");
 							}
-						}else {
-							alert("账号密码不能为空！");
-						}
+						})
+
 					},
 					codeCheck() {
 						var input_code = document.getElementById('code').innerText;

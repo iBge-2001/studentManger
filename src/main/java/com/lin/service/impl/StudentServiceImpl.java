@@ -40,6 +40,6 @@ public class StudentServiceImpl implements StudentService {
         return studentDao.getAll();
     }
     public List<Student> getFuzzy(Object object){
-        return studentDao.getFuzzy(object);
+        return studentDao.getFuzzy("%"+object+"%");
     }
 }

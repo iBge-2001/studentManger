@@ -2,6 +2,7 @@ package com.lin.service.impl;
 
 import com.lin.dao.DormitoryDao;
 import com.lin.domain.Dormitory;
+import com.lin.domain.Student;
 import com.lin.service.DormitoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,10 @@ public class DormitoryServiceImpl implements DormitoryService {
     @Override
     public Dormitory selectById(long id) {
         return dormitoryDao.selectById(id);
+    }
+
+    @Override
+    public List<Dormitory> getFuzzy(Object object) {
+        return dormitoryDao.getFuzzy("%"+object+"%");
     }
 }

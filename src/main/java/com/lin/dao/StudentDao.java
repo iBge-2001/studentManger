@@ -30,7 +30,9 @@ public interface StudentDao {
     @Select("select *from student")
     public List<Student> getAll();
     //concat('%',?name,'%')
-    //@Select("select *from student where st_id like '% #{object} %' or st_name like '% #{object} %' or st_profession like '% #{object} %' or st_academy like '% #{object} %' or st_class like '% #{object} %' or st_phnum like '% #{object} %'")
-    @Select("select *from student where st_id like #{object} or st_name like #{object} or st_profession like #{object} or st_academy like #{object} or st_class like #{object} or st_phnum like #{object}")
+    @Select("select *from student where st_id like #{object}  or st_name like #{object}  or st_profession like #{object}  or st_academy like #{object}  or st_class like #{object}  or st_phnum like #{object} ")
     public List<Student> getFuzzy(Object object);
+//    @Select("<script>select *from student <where> st_id like concat('%',#{object},'%') or st_name like concat('%',#{object},'%')  or st_profession like concat('%',#{object},'%')  or st_academy concat('%',#{object},'%')  or st_class like concat('%',#{object},'%')  or st_phnum like concat('%',#{object},'%')  </where></script>")
+//    @Select("select *from student where st_id like concat('%'#{object},'%') or st_name like concat('%'#{object},'%')  or st_profession like concat('%'#{object},'%')  or st_academy concat('%'#{object},'%')  or st_class like concat('%'#{object},'%')  or st_phnum like concat('%'#{object},'%')")
+
 }
