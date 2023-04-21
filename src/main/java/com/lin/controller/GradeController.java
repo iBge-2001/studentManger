@@ -1,5 +1,6 @@
 package com.lin.controller;
 
+import com.lin.domain.Course;
 import com.lin.domain.Grade;
 import com.lin.service.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,13 @@ public class GradeController {
         System.out.println(Grade!=null ? "查询成功" :"查询失败");
         return new Result(code,Grade,msg);
     }
+    @GetMapping("/grade/{st_id}")
+    public Result getGrade(@PathVariable long st_id){
+        List<Course> grade = gradeService.GetDistinctCourse(st_id);
+        Integer code = grade != null ? Code.GET_OK:Code.GET_ERR;
+        String msg = grade !=null ? "查询成功":"查询失败";
+        System.out.println(grade!=null ? "查询成功":"查询失败");
+        return new Result(code,grade,msg);
 
+    }
 }

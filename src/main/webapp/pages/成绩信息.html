@@ -71,11 +71,6 @@
 			 <el-table  border="1" cellspacing="" label-width="10px"  cellpadding="" size="small" current-row-key="id" :data="grades.slice((currentPage-1)*pageSize,currentPage*pageSize)" stripe highlight-current-row>
 				 <el-table-column prop="st_id" label="编号" align="center" ></el-table-column>
 				 <el-table-column prop="st_name" label="姓名" align="center"></el-table-column>
-<!--				 <el-table-column v-for="item in pros" :label="item" align="center">-->
-<!--					<template slot-scope ='scope' >-->
-<!--						<span v-for="grade in scope.row.listCourse">{{grade.grade}}</span>-->
-<!--					</template>-->
-<!--				 </el-table-column>-->
 				 <el-table-column v-for="(value,index) in pros" :label="value" align="center">
 					 <template slot-scope ='scope' >
 						 <span >{{scope.row.listCourse[index].grade}}</span>
@@ -95,7 +90,37 @@
 			 <el-pagination hide-on-single-page background layout="prev, pager, next,total" :total="listLength" :page-size="pageSize" @current-change="current_change"></el-pagination>
 		 </div>
 		 </table>
+			</div>
+			<div class="add-form">
+				<el-dialog title="编辑检查项" :visible.sync="dialogFormVisible4Edit">
+					<el-form ref="dataAddForm" :model="formData"  label-position="right" label-width="100px">
+						<el-row>
+							<el-col :span="12">
+								<el-form-item label="编号" prop="st_id">
+									<el-input v-model="formData.st_id"/>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row>
+							<el-col :span="12">
 
+								<el-form-item v-for="(value,index) in pros" :label="value">
+
+									<el-input v-model="formData.st_class" prop="grades.listCourse.grade"/>
+
+								</el-form-item>
+
+							</el-col>
+						</el-row>
+					</el-form>
+
+					<div slot="footer" class="dialog-footer">
+
+						<el-button @click="dialogFormVisible4Edit = false">取消</el-button>
+
+						<el-button type="primary" @click="handleEdit()">确定</el-button>
+					</div>
+				</el-dialog>
 			</div>
 		</div>
 
@@ -110,7 +135,9 @@
 				pros:[],
 				grades:[],
 				pageSize:12,//指定展示多少条
-				currentPage:1 //当前页码
+				currentPage:1 ,//当前页码
+				dialogFormVisible4Edit:false,
+				formData:[],
 			},
 			computed:{
 				listLength:function (){
@@ -132,16 +159,40 @@
 				},
 				SelectCourseByPro(){
 					axios.get("../Grade/Course/"+this.Selection).then((res)=>{
-						console.log(res.data.data);
 						this.pros = res.data.data;
 					})
 					this.SelectgradeBycourse();
 				},
 				SelectgradeBycourse(){
 					axios.get("../Grade/"+this.Selection).then((res)=>{
-						console.log(res.data.data);
 						this.grades = res.data.data;
 					})
+				},
+				handleUpdate(row){
+					console.log(row);
+					axios.get("../Grade/grade/"+row.st_id).then((res)=>{
+						if(res.data.code === 20041){
+							console.log(res.data.data);
+							this.formData = res.data.data;
+							this.dialogFormVisible4Edit =true;
+						}else this.$message.error(res.data.msg);
+
+					})
+				},
+				handleEdit(){
+					axios.put("../students", this.formData).then((res) => {
+						if (res.data.code === 20031) {
+							this.dialogFormVisible = false;
+							this.$message.success("编辑成功");
+						} else if (res.data.code === 20030) {
+							this.$message.error("编辑失败");
+						} else {
+							this.$message.error(res.data.msg);
+						}
+					}).finally(() => {
+						this.SelectByPro();
+					});
+
 				},
 			}
 		})

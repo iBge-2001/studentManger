@@ -1,6 +1,7 @@
 package com.lin.service.impl;
 
 import com.lin.dao.GradeDao;
+import com.lin.domain.Course;
 import com.lin.domain.Grade;
 import com.lin.service.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ public class GradeServiceImpl implements GradeService {
     @Override
     public List<String> GetCourse(String st_profession) {
         return gradeDao.GetCourse(st_profession);
+    }
+
+    @Override
+    public List<Course> GetDistinctCourse(long st_id) {
+        return gradeDao.GetDistinctCourse(st_id);
     }
 
 }
