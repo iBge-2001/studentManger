@@ -7,7 +7,7 @@ public class Grade {
     private String st_name;
     private String st_profession;
     private String course;
-
+    private int count;
 //    private String 物联网概论;
 //    private String java高级开发;
 //    private String 数据库;
@@ -16,6 +16,27 @@ public class Grade {
     List<Course> listCourse;
     private  Double 总分;
     private  Double 平均分;
+
+    public Grade(String course, int count) {
+        this.course = course;
+        this.count = count;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
 
     public List<Course> getListCourse() {
         return listCourse;

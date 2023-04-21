@@ -96,20 +96,16 @@
 					<el-form ref="dataAddForm" :model="formData"  label-position="right" label-width="100px">
 						<el-row>
 							<el-col :span="12">
-								<el-form-item label="编号" prop="st_id">
-									<el-input v-model="formData.st_id"/>
+								<el-form-item label="编号" prop="formData.st_id">
+									<el-input v-model="formData[0].st_id"/>
 								</el-form-item>
 							</el-col>
 						</el-row>
 						<el-row>
 							<el-col :span="12">
-
 								<el-form-item v-for="(value,index) in pros" :label="value">
-
-									<el-input v-model="formData.st_class" prop="grades.listCourse.grade"/>
-
+									<el-input v-model="formData[index].grade" prop="formData[index].grade"/>
 								</el-form-item>
-
 							</el-col>
 						</el-row>
 					</el-form>
@@ -131,13 +127,25 @@
 			el:'#a2',
 			data:{
 				emps:[],
-				Selection:"",
+				Selection:"计算机",
 				pros:[],
 				grades:[],
 				pageSize:12,//指定展示多少条
 				currentPage:1 ,//当前页码
 				dialogFormVisible4Edit:false,
-				formData:[],
+				formData:[{
+					"st_id": "",
+					"course": "",
+					"grade": "",
+				},{
+					"st_id": "",
+					"course": "",
+					"grade": "",
+				},{
+					"st_id": "",
+					"course": "",
+					"grade": "",
+				},],
 			},
 			computed:{
 				listLength:function (){
@@ -146,6 +154,8 @@
 			},
 			created() {
 				this.GetSelectProfession();
+				this.SelectCourseByPro();
+				this.SelectgradeBycourse();
 			},
 			methods:{
 				current_change(currentPage){
@@ -172,15 +182,14 @@
 					console.log(row);
 					axios.get("../Grade/grade/"+row.st_id).then((res)=>{
 						if(res.data.code === 20041){
-							console.log(res.data.data);
 							this.formData = res.data.data;
+							this.formData.length = res.data.data.length;
 							this.dialogFormVisible4Edit =true;
 						}else this.$message.error(res.data.msg);
-
 					})
 				},
 				handleEdit(){
-					axios.put("../students", this.formData).then((res) => {
+					axios.put("../Grade", this.formData).then((res) => {
 						if (res.data.code === 20031) {
 							this.dialogFormVisible = false;
 							this.$message.success("编辑成功");

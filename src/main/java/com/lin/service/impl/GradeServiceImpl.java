@@ -29,4 +29,15 @@ public class GradeServiceImpl implements GradeService {
         return gradeDao.GetDistinctCourse(st_id);
     }
 
+    @Override
+    public List<Grade> GetCount(String st_profession) {
+        return gradeDao.GetCount(st_profession);
+    }
+
+    @Override
+    public Boolean updateGrade(List<Grade> list) {
+     int i = gradeDao.updateGrade(list);
+     return i>0;
+    }
+
 }

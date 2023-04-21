@@ -1,13 +1,10 @@
 package com.lin.dao;
 
-import com.alibaba.druid.support.json.JSONUtils;
 import com.lin.controller.GradeController;
 import com.lin.domain.Course;
 import com.lin.domain.Grade;
-import com.lin.domain.User;
 import org.apache.ibatis.annotations.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -29,8 +26,11 @@ public interface GradeDao {
 
     @Select("select *  from grade where st_id = ${st_id}")
     public List<Course> GetDistinctCourse(long st_id);
-
+    @Update("update grade set grade = ${grade} where st_id = ${st_id} and course = ${course}")
+    public int updateGrade(List<Grade> list);
     @Select("select course from course where st_profession = #{st_profession}")
     public List<String> GetCourse(String st_profession);
-
+    @Select("SELECT COUNT( gradelist.st_id ) as count,gradelist.st_profession,gradelist.course \n" +
+            "FROM gradelist WHERE gradelist.grade < 60  AND gradelist.st_profession = #{st_profession} GROUP BY gradelist.course ORDER BY gradelist.course ASC")
+    public List<Grade> GetCount(String st_profession);
 }

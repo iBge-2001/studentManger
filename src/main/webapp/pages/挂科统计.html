@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>课程信息</title>
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 		<style type="text/css">
 			#a1{width: 50%;height: 90px;float: left;}
 			#a3{width: 40%;height: 50px;float: left;text-align: right;}
@@ -20,28 +21,60 @@
 		</style>
 	</head>
 	<body>
+	<div id="app">
 		<div id="a1">
 			<h2>~~挂科信息~~</h2>
 		</div>
-		<div id="a3">
-			
-		</div>
 		<div id="a2">
-			<select name="">
-				<option value="">20网络</option>
-				<option value ="">计算机科学与技术</option>
-				<option value ="">物联网</option>
+			<select v-model ="Selection" @change="SelectByPro(Selection)" style="position: absolute;right:0" >
+				<option disabled value="">请选择</option>
+				<option v-for="emp in emps" :value="emp.profession_name">{{emp.profession_name}}</option>
 			</select>
 		</div>
-		<div id="t1">
-		<table border="0" cellspacing="0" cellpadding="" id="tab1">
-			<tr>
-				<th>科目</th>
-				<th>人数</th>
-				<th>查看</th>
-			</tr>
-		</table>
-		</div>
-		
+				<div>
+				<table>
+				<el-table  border="1" cellspacing="" label-width="10px"  cellpadding="" size="small" current-row-key="id" :data="pros" stripe highlight-current-row>
+					<el-table-column prop="course" label="科目" align="center" ></el-table-column>
+					<el-table-column prop="count" label="人数" align="center"></el-table-column>
+					<el-table-column label="查看" align="center">
+						<template slot-scope="scope">
+							<el-button type="primary" size="mini" @click="check(scope.row)">查看</el-button>
+						</template>
+					</el-table-column>
+				</el-table>
+				</table>
+				</div>
+	</div>
 	</body>
+	<script src="../js/vue.js"></script>
+	<script src="../js/axios-0.18.0.js"></script>
+	<!-- 引入组件库 -->
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<script>
+		var vue = new Vue({
+			el:"#app",
+			data:{
+				emps:[],
+				Selection:"",
+				pros:[],
+			},
+			created() {
+				this.GetSelectProfession();
+			},
+			methods:{
+				GetSelectProfession(){
+					axios.get("../profession").then((res)=>{
+						this.emps = res.data.data;
+					})
+				},
+				SelectByPro(){
+					axios.get("../Grade/count/"+this.Selection).then((res)=>{
+						alert(this.Selection);
+						console.log(res.data.data);
+						this.pros = res.data.data;
+					})
+				},
+			}
+		})
+	</script>
 </html>

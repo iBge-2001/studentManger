@@ -2,6 +2,7 @@ package com.lin.controller;
 
 import com.lin.domain.Course;
 import com.lin.domain.Grade;
+import com.lin.domain.Student;
 import com.lin.service.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -39,5 +40,19 @@ public class GradeController {
         System.out.println(grade!=null ? "查询成功":"查询失败");
         return new Result(code,grade,msg);
 
+    }
+    @GetMapping("/count/{st_profession}")
+    public Result getGrade(@PathVariable String st_profession){
+        List<Grade> grade = gradeService.GetCount(st_profession);
+        Integer code = grade != null ? Code.GET_OK:Code.GET_ERR;
+        String msg = grade !=null ? "查询成功":"查询失败";
+        System.out.println(grade!=null ? "查询成功":"查询失败");
+        return new Result(code,grade,msg);
+    }
+    @PutMapping
+    public Result update(@RequestBody List<Grade> list) {
+        System.out.println(list);
+        boolean flag = gradeService.updateGrade(list);
+        return new Result(flag? Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     }
 }
