@@ -26,7 +26,7 @@ public interface GradeDao {
 
     @Select("select *  from grade where st_id = ${st_id}")
     public List<Course> GetDistinctCourse(long st_id);
-    @Update("update grade set grade = ${grade} where st_id = ${st_id} and course = ${course}")
+    @Update("update grade set grade = #{list.grade} where st_id = #{list.st_id} and course = #{list.course}")
     public int updateGrade(List<Grade> list);
     @Select("select course from course where st_profession = #{st_profession}")
     public List<String> GetCourse(String st_profession);
