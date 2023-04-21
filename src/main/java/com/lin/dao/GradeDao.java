@@ -4,6 +4,7 @@ import com.lin.controller.GradeController;
 import com.lin.domain.Course;
 import com.lin.domain.Grade;
 import org.apache.ibatis.annotations.*;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,8 +27,9 @@ public interface GradeDao {
 
     @Select("select *  from grade where st_id = ${st_id}")
     public List<Course> GetDistinctCourse(long st_id);
-    @Update("update grade set grade = #{list.grade} where st_id = #{list.st_id} and course = #{list.course}")
-    public int updateGrade(List<Grade> list);
+
+    @Update("<script><foreach collection = 'list' item ='item' open='' close='' separator=';'> update grade set grade = #{item.grade} where st_id = #{item.st_id} and course = #{item.course}</foreach></script>")
+    public int updateGrade(@Param("list") List<Course> list);
     @Select("select course from course where st_profession = #{st_profession}")
     public List<String> GetCourse(String st_profession);
     @Select("SELECT COUNT( gradelist.st_id ) as count,gradelist.st_profession,gradelist.course \n" +

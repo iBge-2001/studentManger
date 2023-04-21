@@ -35,7 +35,7 @@ public class GradeServiceImpl implements GradeService {
     }
 
     @Override
-    public Boolean updateGrade(List<Grade> list) {
+    public Boolean updateGrade(List<Course> list) {
      int i = gradeDao.updateGrade(list);
      return i>0;
     }

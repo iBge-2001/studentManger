@@ -191,7 +191,7 @@
 				handleEdit(){
 					axios.put("../Grade", this.formData).then((res) => {
 						if (res.data.code === 20031) {
-							this.dialogFormVisible = false;
+							this.dialogFormVisible4Edit = false;
 							this.$message.success("编辑成功");
 						} else if (res.data.code === 20030) {
 							this.$message.error("编辑失败");
@@ -199,7 +199,7 @@
 							this.$message.error(res.data.msg);
 						}
 					}).finally(() => {
-						this.SelectByPro();
+						this.SelectgradeBycourse();
 					});
 
 				},

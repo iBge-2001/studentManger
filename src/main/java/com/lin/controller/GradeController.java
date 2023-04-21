@@ -50,7 +50,7 @@ public class GradeController {
         return new Result(code,grade,msg);
     }
     @PutMapping
-    public Result update(@RequestBody List<Grade> list) {
+    public Result update(@RequestBody List<Course> list) {
         System.out.println(list);
         boolean flag = gradeService.updateGrade(list);
         return new Result(flag? Code.UPDATE_OK:Code.UPDATE_ERR,flag);
