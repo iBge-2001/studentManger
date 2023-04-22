@@ -35,4 +35,6 @@ public interface GradeDao {
     public List<Grade> GetCount(String st_profession);
     @Insert("<script><foreach collection = 'list' item ='item' open='' close='' separator=';'> insert into grade (grade,st_id,course) values (#{item.grade},#{item.st_id},#{item.course}) </foreach></script>")
     public int insGrade(@Param("list") List<Course> list);
+    @Select("SELECT CONCAT(ROUND((SELECT COUNT(grade.st_id) FROM grade WHERE grade.grade < 60)/ (SELECT COUNT(grade.st_id) FROM grade)*100,2),'%') As 百分比;")
+    public String getPercent();
 }

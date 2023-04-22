@@ -119,19 +119,19 @@
 				</el-dialog>
 			</div>
 			<div class="add-form">
-				<el-dialog title="添加检查项" :visible.sync="dialogFormVisible4">
+				<el-dialog title="添加检查项" :visible.sync="dialogFormVisible4Add">
 					<el-form ref="dataAddForm" :model="formData"  label-position="right" label-width="100px">
 						<el-row>
 							<el-col :span="12">
-								<el-form-item  label="编号" prop="formData.st_id">
-									<el-input   v-model="formData[0].st_id"/>
+								<el-form-item label="编号" prop="formData.st_id">
+									<el-input v-model="formData[0].st_id"/>
 								</el-form-item>
 							</el-col>
 						</el-row>
 						<el-row>
 							<el-col :span="12">
-								<el-form-item v-for="(value,index) in pros" :label="value">
-									<el-input v-model="formData[index].grade" prop="formData[index].grade"/>
+								<el-form-item v-for="(v,i) in pros" :label="v">
+									<el-input v-model="formData[i].grade" prop="formData[i].grade"/>
 								</el-form-item>
 							</el-col>
 						</el-row>
@@ -139,7 +139,7 @@
 
 					<div slot="footer" class="dialog-footer">
 
-						<el-button @click="dialogFormVisible4= false">取消</el-button>
+						<el-button @click="dialogFormVisible4Add = false">取消</el-button>
 
 						<el-button type="primary" @click="handleAdd()">确定</el-button>
 					</div>
@@ -160,7 +160,7 @@
 				pageSize:12,//指定展示多少条
 				currentPage:1 ,//当前页码
 				dialogFormVisible4Edit:false,
-				dialogFormVisible4:false,
+				dialogFormVisible4Add:false,
 				formData:[{
 					"st_id": "",
 					"course": "",
@@ -190,7 +190,7 @@
 					this.currentPage = currentPage;
 				},
 				showAddInput(){
-					this.dialogFormVisible4="true";
+					this.dialogFormVisible4Add="true";
 				},
 				GetSelectProfession(){
 					// axios.get("../profession").then((res)=>{
@@ -219,6 +219,7 @@
 						}else this.$message.error(res.data.msg);
 					})
 				},handleAdd(){
+					console.log(this.formData);
 					axios.post("../Grade", this.formData).then((res) => {
 						console.log(res.data);
 						if (res.data.code === 20011) {
@@ -234,6 +235,7 @@
 					});
 				},
 				handleEdit(){
+					console.log(this.formData);
 					axios.put("../Grade", this.formData).then((res) => {
 						if (res.data.code === 20031) {
 							this.dialogFormVisible4Edit = false;

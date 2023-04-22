@@ -45,4 +45,9 @@ public class GradeServiceImpl implements GradeService {
         return gradeDao.insGrade(list)>0;
     }
 
+    @Override
+    public String getPercent() {
+        return gradeDao.getPercent();
+    }
+
 }

@@ -110,12 +110,13 @@
 
 	<body>
 		<h1><font style="color: #666;">~~首页~~</font></h1>
+		<div id="app">
 		<div id="a3">
 			<font size="4" color="white">学院总人数</font>
 			<hr color="#666" size="2" width="30%" align="left">
 			<center>
-				<div id="btoom">
-					<b>1432人</b>
+				<div id="btoom" v-bind="count" >
+					<b>{{count}}人</b>
 					<div id="biao">
 						<b>Ⅰ</b>
 					</div>
@@ -126,7 +127,7 @@
 			<hr color="#666" size="2" width="30%" align="left">
 			<center>
 				<div id="btoom1">
-					<b>0.78%</b>
+					<b>{{percent}}</b>
 					<div id="biao">
 						<b>Ⅱ</b>
 					</div>
@@ -142,7 +143,7 @@
 			<font size="4" color="#6495ED">班级总数</font>
 			<hr color="#666" size="2" width="30%" align="left">
 			<div id="btoom1">
-			<b>222个</b>
+			<b>{{classcount}}个</b>
 			<div id="biao">
 				<b>Ⅲ</b>
 			</div>
@@ -152,7 +153,7 @@
 			<font size="4" color="white">班级均人数</font>
 			<hr color="#666" size="2" width="30%" align="left">
 			<div id="btoom">
-			<b>56人</b>
+			<b>{{avgcount}}人</b>
 			<div id="biao">
 				<b>Ⅳ</b>
 			</div>
@@ -168,31 +169,58 @@
 			</div>
 			</div>
 		</div>
-		<div id="a1">
-			<font size="4" color="#6495ED">违规违纪人数</font>
-			<hr color="#666" size="2" width="30%" align="left">
-			<div id="btoom1">
-			<b>18人</b>
-			<div id="biao">
-				<b>Ⅵ</b>
-			</div>
-			</div>
+				<div id="a1">
+				<font size="4" color="#6495ED">违规违纪人数</font>
+				<hr color="#666" size="2" width="30%" align="left">
+					<div id="btoom1">
+						<b>18人</b>
+							<div id="biao">
+								<b>Ⅵ</b>
+							</div>
+					</div>
+				</div>
 		</div>
 		<!-- 引入组件库 -->
 		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 	<script>
 		var vue = new Vue({
-			el:'#a2',
+			el:'#app',
 			data:{
 			value:null,
+			count:"",
+			percent:"",
+			avgcount:"",
+			classcount:"",
 			},
 			created(){
 				this.mGetDate();
+				this.getCount();
+				this.getPercent();
+				this.getAvgCount();
+				this.getClassCount();
 			},
 			methods:{
 				 mGetDate(){
 				this.value=new Date();
-				}
+				},
+				getCount(){
+					axios.get("../profession/count").then((res)=>{
+						this.count = res.data.data;
+					})
+				},getPercent(){
+					axios.get("../Grade/percent").then((res)=>{
+						this.percent = res.data.data;
+					})
+				},getAvgCount(){
+					axios.get("../Class/avgcount").then((res)=>{
+						this.avgcount = res.data.data;
+					})
+				},getClassCount(){
+					axios.get("../Class/classcount").then((res)=>{
+						this.classcount = res.data.data;
+					})
+				},
+
 			}
 		})
 	</script>

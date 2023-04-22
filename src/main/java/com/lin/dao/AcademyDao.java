@@ -13,4 +13,6 @@ public interface AcademyDao {
     //根据专业获取该专业学生信息
     @Select("select *from detailview where st_profession = #{st_profession}")
     public List<Student> getByProfessionId(String st_profession);
+    @Select("SELECT SUM(count.count),count.academy FROM count GROUP BY count.academy")
+    public Integer getAcademyCount();
 }

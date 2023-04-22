@@ -61,4 +61,12 @@ public class GradeController {
         System.out.println(flag);
         return new Result(flag? Code.SAVE_OK:Code.Save_ERR,flag);
     }
+    @GetMapping("/percent")
+    public Result getPercent(){
+        String percent = gradeService.getPercent();
+        Integer code = percent != null ? Code.GET_OK:Code.GET_ERR;
+        String msg = percent !=null ? "查询成功":"查询失败";
+        System.out.println(percent!=null ? "查询成功":"查询失败");
+        return new Result(code,percent,msg);
+    }
 }

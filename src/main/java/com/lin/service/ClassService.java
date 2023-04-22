@@ -9,4 +9,6 @@ public interface ClassService {
     public List<String> getByAcademyName();
     public List<ClassDetail> getAll(String academy);
     public ClassDetail getByclass(String classname);
+    public String getAvgCount();
+    public String getClassCount();
 }

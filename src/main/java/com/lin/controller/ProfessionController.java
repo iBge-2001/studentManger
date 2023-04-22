@@ -31,4 +31,12 @@ public class ProfessionController {
         String msg = studentList!=null ? "查询成功" :"查询失败";
         return new Result(code,studentList,msg);
     }
+    @GetMapping("/count")
+    public Result getCount(){
+        Integer count = academyService.getAcademyCount();
+        Integer code = count != null ? Code.GET_OK:Code.GET_ERR;
+        String msg = count !=null ?"查询成功" :"查询失败";
+        System.out.println(count !=null ? "查询成功" :"查询失败");
+        return new Result(code,count,msg);
+    }
 }

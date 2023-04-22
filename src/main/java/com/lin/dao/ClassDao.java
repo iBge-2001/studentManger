@@ -15,4 +15,8 @@ public interface ClassDao {
     public List<ClassDetail> getAll(String academy);
     @Select("select *from count where classname = #{classname}")
     public ClassDetail getByclass(String classname);
+    @Select("SELECT ROUND(AVG(count.count),0) As count FROM count")
+    public String getAvgCount();
+    @Select("SELECT COUNT(academy.classname) FROM academy")
+    public String getClassCount();
 }

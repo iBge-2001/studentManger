@@ -39,4 +39,20 @@ public class ClassController {
         System.out.println(classDetail!=null ? "查询成功" :"查询失败");
         return new Result(code,classDetail,msg);
     }
+    @GetMapping("/avgcount")
+    public Result getAvgCount() {
+        String Count = classService.getAvgCount();
+        Integer code = Count !=null ? Code.GET_OK:Code.GET_ERR;
+        String msg = Count!=null ? "查询成功" :"查询失败";
+        System.out.println(Count!=null ? "查询成功" :"查询失败");
+        return new Result(code,Count,msg);
+    }
+    @GetMapping("/classcount")
+    public Result getClassCount() {
+        String Count = classService.getClassCount();
+        Integer code = Count !=null ? Code.GET_OK:Code.GET_ERR;
+        String msg = Count!=null ? "查询成功" :"查询失败";
+        System.out.println(Count!=null ? "查询成功" :"查询失败");
+        return new Result(code,Count,msg);
+    }
 }

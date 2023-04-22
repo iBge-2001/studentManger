@@ -26,4 +26,14 @@ public class ClassServiceImpl implements ClassService {
     public ClassDetail getByclass(String classname) {
         return classDao.getByclass(classname);
     }
+
+    @Override
+    public String getAvgCount() {
+        return classDao.getAvgCount();
+    }
+
+    @Override
+    public String getClassCount() {
+        return classDao.getClassCount();
+    }
 }
