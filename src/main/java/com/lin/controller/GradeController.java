@@ -76,7 +76,7 @@ public class GradeController {
         System.out.println(flag);
         return new Result(flag? Code.DELETE_OK:Code.DELETE_ERR,flag);
     }
-    @GetMapping("/fail")
+    @PostMapping("/fail")
     public Result getFail(@RequestBody Grade grade){
         List<Grade> gradeList = gradeService.getFail(grade);
         Integer code = gradeList != null ? Code.GET_OK:Code.GET_ERR;
