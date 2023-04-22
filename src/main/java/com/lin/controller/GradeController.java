@@ -32,6 +32,7 @@ public class GradeController {
         System.out.println(Grade!=null ? "查询成功" :"查询失败");
         return new Result(code,Grade,msg);
     }
+
     @GetMapping("/grade/{st_id}")
     public Result getGrade(@PathVariable long st_id){
         List<Course> grade = gradeService.GetDistinctCourse(st_id);
@@ -68,5 +69,11 @@ public class GradeController {
         String msg = percent !=null ? "查询成功":"查询失败";
         System.out.println(percent!=null ? "查询成功":"查询失败");
         return new Result(code,percent,msg);
+    }
+    @DeleteMapping("/{st_id}")
+    public Result delete(@PathVariable long st_id) {
+        boolean flag  = gradeService.deleteGrade(st_id);
+        System.out.println(flag);
+        return new Result(flag? Code.DELETE_OK:Code.DELETE_ERR,flag);
     }
 }

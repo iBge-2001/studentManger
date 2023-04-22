@@ -50,4 +50,8 @@ public class GradeServiceImpl implements GradeService {
         return gradeDao.getPercent();
     }
 
+    @Override
+    public Boolean deleteGrade(long st_id) {
+        return gradeDao.deleteGrade(st_id)>0;
+    }
 }

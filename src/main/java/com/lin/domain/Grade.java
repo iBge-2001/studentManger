@@ -22,6 +22,10 @@ public class Grade {
         this.count = count;
     }
 
+    public Grade(String course) {
+        this.course = course;
+    }
+
     public int getCount() {
         return count;
     }

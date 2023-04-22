@@ -96,8 +96,8 @@
 					<el-form ref="dataAddForm" :model="formData"  label-position="right" label-width="100px">
 						<el-row>
 							<el-col :span="12">
-								<el-form-item label="编号" prop="formData.st_id">
-									<el-input v-model="formData[0].st_id"/>
+								<el-form-item  label="编号" prop="formData.st_id">
+									<el-input  v-model="formData[0].st_id"/>
 								</el-form-item>
 							</el-col>
 						</el-row>
@@ -123,14 +123,14 @@
 					<el-form ref="dataAddForm" :model="formData"  label-position="right" label-width="100px">
 						<el-row>
 							<el-col :span="12">
-								<el-form-item label="编号" prop="formData.st_id">
+								<el-form-item label="编号" prop="st_id">
 									<el-input v-model="formData[0].st_id"/>
 								</el-form-item>
 							</el-col>
 						</el-row>
 						<el-row>
 							<el-col :span="12">
-								<el-form-item v-for="(v,i) in pros" :label="v">
+								<el-form-item v-for="(v,i) in pros" :label="v" :model="formData[i].course" prop="formData[i].course">
 									<el-input v-model="formData[i].grade" prop="formData[i].grade"/>
 								</el-form-item>
 							</el-col>
@@ -197,10 +197,13 @@
 					axios.get("../profession").then((res)=>{
 						this.emps = res.data.data;
 					})
-				},
+				 },
 				SelectCourseByPro(){
 					axios.get("../Grade/Course/"+this.Selection).then((res)=>{
 						this.pros = res.data.data;
+						for (let i 	= 0; i < this.formData.length; i++) {
+							this.formData[i].course = this.pros[i];
+						}
 					})
 					this.SelectgradeBycourse();
 				},
@@ -223,7 +226,7 @@
 					axios.post("../Grade", this.formData).then((res) => {
 						console.log(res.data);
 						if (res.data.code === 20011) {
-							this.dialogFormVisible4 = false;
+							this.dialogFormVisible4Add = false;
 							this.$message.success("添加成功");
 						} else if (res.data.code === 20010) {
 							this.$message.error("添加失败");
@@ -248,8 +251,27 @@
 					}).finally(() => {
 						this.SelectgradeBycourse();
 					});
-
 				},
+				handleDelete(row) {
+					//1.弹提示框
+					this.$confirm("此操作永久删除数据，是否继续？", "提示", {
+						type: 'info'
+					}).then(() => {
+						axios.delete("/Grade/" + row.st_id).then((res) => {
+							if (res.data.code == 20021) {
+								//2、做删除业务
+								this.$message.success("删除成功")
+							} else {
+								this.$message.error("删除失败");
+							}
+						})
+					}).catch(() => {
+						//3、取消删除操作
+						this.$message.info("取消删除操作");
+					}).finally(() => {
+						this.SelectgradeBycourse();
+					});
+				}
 			}
 		})
 		</script>

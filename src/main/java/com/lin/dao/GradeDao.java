@@ -33,8 +33,10 @@ public interface GradeDao {
     @Select("SELECT COUNT( gradelist.st_id ) as count,gradelist.st_profession,gradelist.course \n" +
             "FROM gradelist WHERE gradelist.grade < 60  AND gradelist.st_profession = #{st_profession} GROUP BY gradelist.course ORDER BY gradelist.course ASC")
     public List<Grade> GetCount(String st_profession);
-    @Insert("<script><foreach collection = 'list' item ='item' open='' close='' separator=';'> insert into grade (grade,st_id,course) values (#{item.grade},#{item.st_id},#{item.course}) </foreach></script>")
+    @Insert("<script><foreach collection = 'list' item ='item' open='' close='' separator=';'> insert into grade (grade,st_id,course) values (#{item.grade},#{list[0].st_id},#{item.course}) </foreach></script>")
     public int insGrade(@Param("list") List<Course> list);
     @Select("SELECT CONCAT(ROUND((SELECT COUNT(grade.st_id) FROM grade WHERE grade.grade < 60)/ (SELECT COUNT(grade.st_id) FROM grade)*100,2),'%') As 百分比;")
     public String getPercent();
+    @Delete("Delete  from grade where st_id = #{st_id}")
+    public int deleteGrade(long st_id);
 }
