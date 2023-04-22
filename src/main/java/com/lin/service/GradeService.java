@@ -11,4 +11,5 @@ public interface GradeService {
     public List<Course> GetDistinctCourse(long st_id);
     public List<Grade> GetCount(String st_profession);
     public Boolean updateGrade(List<Course> list);
+    public Boolean insGrade(List<Course> list);
 }

@@ -55,4 +55,10 @@ public class GradeController {
         boolean flag = gradeService.updateGrade(list);
         return new Result(flag? Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     }
+    @PostMapping
+    public Result insGrade(@RequestBody  List<Course> list) {
+        boolean flag =  gradeService.insGrade(list);
+        System.out.println(flag);
+        return new Result(flag? Code.SAVE_OK:Code.Save_ERR,flag);
+    }
 }

@@ -45,7 +45,7 @@ public class LoginController {
         // 清除Session中的用户信息
         session.removeAttribute("user");
         // 返回登录页面
-        return "redirect:/login";
+        return "redirect:/登录.html";
     }
 
 

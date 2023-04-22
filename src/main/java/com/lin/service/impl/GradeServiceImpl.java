@@ -40,4 +40,9 @@ public class GradeServiceImpl implements GradeService {
      return i>0;
     }
 
+    @Override
+    public Boolean insGrade(List<Course> list) {
+        return gradeDao.insGrade(list)>0;
+    }
+
 }

@@ -61,7 +61,7 @@ public class Dormitory {
     public String toString() {
         return "Dormitory{" +
                 "st_name='" + st_name + '\'' +
-                ", buliding_no=" + building_no +
+                ", building_no=" + building_no +
                 ", dormitory_no=" + dormitory_no +
                 ", st_class='" + st_class + '\'' +
                 ", st_id=" + st_id +

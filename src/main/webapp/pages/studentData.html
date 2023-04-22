@@ -278,10 +278,6 @@
 					handleEdit(){
 						axios.put("../students", this.formData).then((res) => {
 						console.log(res.data);
-						// //如果操作成功，关闭弹层
-						// this.dialogFormVisible=false;
-						// //显示数据
-						// this.getAll();
 						if (res.data.code === 20031) {
 							this.dialogFormVisible = false;
 							this.$message.success("添加成功");

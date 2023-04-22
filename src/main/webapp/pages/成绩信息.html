@@ -118,6 +118,33 @@
 					</div>
 				</el-dialog>
 			</div>
+			<div class="add-form">
+				<el-dialog title="添加检查项" :visible.sync="dialogFormVisible4">
+					<el-form ref="dataAddForm" :model="formData"  label-position="right" label-width="100px">
+						<el-row>
+							<el-col :span="12">
+								<el-form-item  label="编号" prop="formData.st_id">
+									<el-input   v-model="formData[0].st_id"/>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row>
+							<el-col :span="12">
+								<el-form-item v-for="(value,index) in pros" :label="value">
+									<el-input v-model="formData[index].grade" prop="formData[index].grade"/>
+								</el-form-item>
+							</el-col>
+						</el-row>
+					</el-form>
+
+					<div slot="footer" class="dialog-footer">
+
+						<el-button @click="dialogFormVisible4= false">取消</el-button>
+
+						<el-button type="primary" @click="handleAdd()">确定</el-button>
+					</div>
+				</el-dialog>
+			</div>
 		</div>
 
 		<script src="../plugins/elementui/index.js"></script>
@@ -133,6 +160,7 @@
 				pageSize:12,//指定展示多少条
 				currentPage:1 ,//当前页码
 				dialogFormVisible4Edit:false,
+				dialogFormVisible4:false,
 				formData:[{
 					"st_id": "",
 					"course": "",
@@ -161,6 +189,9 @@
 				current_change(currentPage){
 					this.currentPage = currentPage;
 				},
+				showAddInput(){
+					this.dialogFormVisible4="true";
+				},
 				GetSelectProfession(){
 					// axios.get("../profession").then((res)=>{
 					axios.get("../profession").then((res)=>{
@@ -187,6 +218,20 @@
 							this.dialogFormVisible4Edit =true;
 						}else this.$message.error(res.data.msg);
 					})
+				},handleAdd(){
+					axios.post("../Grade", this.formData).then((res) => {
+						console.log(res.data);
+						if (res.data.code === 20011) {
+							this.dialogFormVisible4 = false;
+							this.$message.success("添加成功");
+						} else if (res.data.code === 20010) {
+							this.$message.error("添加失败");
+						} else {
+							this.$message.error(res.data.msg);
+						}
+					}).finally(() => {
+						this.SelectgradeBycourse();
+					});
 				},
 				handleEdit(){
 					axios.put("../Grade", this.formData).then((res) => {

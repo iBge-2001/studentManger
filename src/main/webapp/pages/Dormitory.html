@@ -37,7 +37,6 @@
 			<div  id="f1">
 				<input type="search" v-model="FuzzyData" id="s1" placeholder="请输入查询信息"/>
 				<el-button @click="SelectByFuzzy()"  id="submit">搜索</el-button>
-				<el-button id="A2" @click="showAddInput()" style="font-size: large">添加信息</el-button>
 			</div>
 
 		</div>
@@ -206,12 +205,11 @@
 				},
 				select(){
 					axios.get("../Dormitory").then((res)=>{
-
+						console.log(res.data.data);
 						this.pros = res.data.data;
 					})
 				},
 				SelectByFuzzy(){
-					alert(this.FuzzyData);
 					axios.get("../Dormitory/FuzzySelect/"+this.FuzzyData).then((res)=>{
 						console.log(res.data.data);
 						this.pros = res.data.data;
@@ -229,13 +227,28 @@
 							this.dialogFormVisible4Edit =true;
 						}else this.$message.error(res.data.msg);
 					})
+				},handleEdit(){
+					axios.put("../Dormitory", this.formData).then((res) => {
+						console.log(res.data);
+						if (res.data.code === 20031) {
+							this.dialogFormVisible4Edit = false;
+							this.$message.success("修改成功");
+						} else if (res.data.code === 20030) {
+							this.$message.error("修改失败");
+						} else {
+							this.$message.error(res.data.msg);
+						}
+					}).finally(() => {
+						this.select();
+					});
+
 				},
 				handleDelete(row) {
 					//1.弹提示框
 					this.$confirm("此操作永久删除数据，是否继续？", "提示", {
 						type: 'info'
 					}).then(() => {
-						axios.delete("/students/" + row.st_id).then((res) => {
+						axios.delete("/Dormitory/" + row.st_id).then((res) => {
 							if (res.data.code == 20021) {
 								//2、做删除业务
 								this.$message.success("删除成功")
