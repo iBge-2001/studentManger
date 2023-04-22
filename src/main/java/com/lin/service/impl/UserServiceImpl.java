@@ -6,6 +6,8 @@ import com.lin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -14,5 +16,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User selectOneUser(String user) {
         return userDao.selectOneUser(user);
+    }
+
+    @Override
+    public List<User> getAll() {
+        return userDao.getAll();
     }
 }

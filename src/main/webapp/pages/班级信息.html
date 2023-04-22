@@ -50,7 +50,7 @@
 		<div id="a1" style="color: #6495ED;font-size: larger">~~班级信息~~
 		</div>
 			<div >
-				<select v-model ="Selection" @change="SelectByAcdemy(Selection)" style="position: absolute;right:0" >
+				<select v-model ="Selection" @change="SelectByAcademy(Selection)" style="position: absolute;right:0" >
 					<option disabled value="">请选择</option>
 					<option v-for="emp in emps" :value="emp">{{emp}}</option>
 				</select>
@@ -163,6 +163,7 @@
 				},
 				created() {
 					this.GetSelectAcademy();
+					this.SelectByAcademy();
 				},
 				methods: {
 					restFrom(){
@@ -173,7 +174,7 @@
 							this.emps = res.data.data;
 						})
 					},
-					SelectByAcdemy(){
+					SelectByAcademy(){
 						axios.get("../Class/ByAcdemy/"+this.Selection).then((res)=>{
 							console.log(res.data.data);
 							this.pros = res.data.data;

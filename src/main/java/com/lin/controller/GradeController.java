@@ -76,4 +76,13 @@ public class GradeController {
         System.out.println(flag);
         return new Result(flag? Code.DELETE_OK:Code.DELETE_ERR,flag);
     }
+    @GetMapping("/fail")
+    public Result getFail(@RequestBody Grade grade){
+        List<Grade> gradeList = gradeService.getFail(grade);
+        Integer code = gradeList != null ? Code.GET_OK:Code.GET_ERR;
+        String msg = gradeList !=null ? "查询成功":"查询失败";
+        System.out.println(gradeList);
+        System.out.println(gradeList!=null ? "查询成功":"查询失败");
+        return new Result(code,gradeList,msg);
+    }
 }

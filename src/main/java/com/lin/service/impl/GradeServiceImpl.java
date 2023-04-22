@@ -54,4 +54,9 @@ public class GradeServiceImpl implements GradeService {
     public Boolean deleteGrade(long st_id) {
         return gradeDao.deleteGrade(st_id)>0;
     }
+
+    @Override
+    public List<Grade> getFail(Grade grade) {
+        return gradeDao.getFail(grade);
+    }
 }

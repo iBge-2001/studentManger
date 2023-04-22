@@ -38,8 +38,17 @@
 					<el-table-column prop="count" label="人数" align="center"></el-table-column>
 					<el-table-column label="查看" align="center">
 						<template slot-scope="scope">
-							<el-button type="primary" size="mini" @click="check(scope.row)">查看</el-button>
+							<el-popover trigger="click">
+								<el-table data="gridData">
+									<el-table-column width="150" property="st_id" label="学号"></el-table-column>
+									<el-table-column width="100" property="st_name" label="姓名"></el-table-column>
+									<el-table-column width="300" property="grade" label="成绩"></el-table-column>
+								</el-table>
+							<el-button slot="reference" type="primary" size="mini" @click="check(scope.row)">查看</el-button>
+							</el-popover>
 						</template>
+						<!--							<el-button slot="reference" type="primary" size="mini" @click="check(scope.row)">查看</el-button>-->
+
 					</el-table-column>
 				</el-table>
 				</table>
@@ -57,23 +66,43 @@
 				emps:[],
 				Selection:"",
 				pros:[],
+				detail:{
+					course:"",
+					st_profession:""
+					},
+				gridData:{
+					st_name: "",
+					st_id:"",
+					grade:""
+				},
 			},
 			created() {
 				this.GetSelectProfession();
 			},
-			methods:{
-				GetSelectProfession(){
-					axios.get("../profession").then((res)=>{
+			methods: {
+				GetSelectProfession() {
+					axios.get("../profession").then((res) => {
 						this.emps = res.data.data;
 					})
 				},
-				SelectByPro(){
-					axios.get("../Grade/count/"+this.Selection).then((res)=>{
-						alert(this.Selection);
+				SelectByPro() {
+					axios.get("../Grade/count/" + this.Selection).then((res) => {
 						console.log(res.data.data);
 						this.pros = res.data.data;
 					})
 				},
+				check(row) {
+					this.detail.course = row.course;
+					this.detail.st_profession=this.Selection;
+					console.log(this.detail);
+					axios.get("../Grade/fail/" + this.detail).then((res) => {
+							console.log(res.data.data);
+								this.gridData.st_id = res.data.data.st_id;
+								this.gridData.st_name = res.data.data.st_name;
+								this.gridData.grade = res.data.data.grade;
+							},
+					)
+				}
 			}
 		})
 	</script>

@@ -26,6 +26,12 @@ public class Grade {
         this.course = course;
     }
 
+    public Grade(long st_id, String st_name, int grade) {
+        this.st_id = st_id;
+        this.st_name = st_name;
+        this.grade = grade;
+    }
+
     public int getCount() {
         return count;
     }

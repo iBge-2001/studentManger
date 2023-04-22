@@ -39,4 +39,6 @@ public interface GradeDao {
     public String getPercent();
     @Delete("Delete  from grade where st_id = #{st_id}")
     public int deleteGrade(long st_id);
+    @Select("select st_id,grade,st_profession,st_name from gradelist where course = '${course}' and st_profession = '${st_profession}' and grade < 60")
+    public List<Grade> getFail(Grade grade);
 }

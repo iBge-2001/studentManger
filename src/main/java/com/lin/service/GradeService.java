@@ -20,4 +20,5 @@ public interface GradeService {
 
     public String getPercent();
     public Boolean deleteGrade(long st_id);
+    public List<Grade> getFail(Grade grade);
 }
