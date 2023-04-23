@@ -105,7 +105,7 @@
 							if(true){
 								axios.post("../login",this.formData).then((res) =>{
 									if (res.data.code === 20051){
-										alert(res.data.msg)
+										console.log(res.data.msg)
 										window.location.href = "./index.html";
 									}else {
 										alert(res.data.msg)
