@@ -1,271 +1,339 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<script src="../js/vue.js"></script>
-		<script src="../js/axios-0.18.0.js"></script>
-		<link rel="stylesheet" href="../plugins/elementui/index.css">
-		<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="../css/style.css">
+<head>
+    <meta charset="utf-8">
+    <script src="../js/vue.js"></script>
+    <script src="../js/axios-0.18.0.js"></script>
+    <link rel="stylesheet" href="../plugins/elementui/index.css">
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+
+    <title>宿舍信息</title>
+    <style type="text/css">
+        #a1 {
+            width: 30%;
+            height: 90px;
+            float: left;
+        }
+
+        #a4 {
+            width: 70%;
+            height: 90px;
+            float: right;
+            text-align: left;
+        }
+
+        #f1 {
+            padding-top: 2%;
+            padding-left: 20%;
+        }
+
+        #s1 {
+            width: 200px;
+            height: 40px;
+            border: 1px solid #6495ED;
+            border-radius: 6px 6px 6px 6px;
+        }
+
+        #submit {
+            text-decoration: none;
+            height: 40px;
+            font-size: large;
+            background-color: #6495ED;
+            border: 3px solid #000000;
+            padding: 8px 8px 8px 8px;
+            border-radius: 7px 7px 7px 7px;
+        }
+
+        #t1 {
+            width: 100%;
+            height: 500px;
+        }
+
+        #tab1 {
+            width: 100%;
+            text-align: center;
+            border-color: #6495ED;
+            border: 0px solid #6495ED;
+        }
+
+        th {
+            border: 1px solid aliceblue;
+        }
 
+        th {
+            width: 230px;
+            height: 40px;
+        }
 
-		<title>宿舍信息</title>
-			<style type="text/css">
-				#a1{width: 30%;height: 90px;float: left;}
-				#a4{width: 70%;height: 90px;float: right;text-align: left;}
-				#f1{padding-top: 2%;padding-left: 20%;}
-				#s1{width: 200px;height: 40px; border: 1px solid #6495ED;border-radius: 6px 6px 6px 6px;}
-				#submit{text-decoration: none;height: 40px;font-size: large;background-color: #6495ED;border: 3px solid #000000;padding: 8px 8px 8px 8px;border-radius: 7px 7px 7px 7px;}
-				#t1{width: 100%;height: 500px;}
-				#tab1{width: 100%;text-align: center;border-color: #6495ED;border: 0px solid #6495ED;}
-				th{border: 1px solid aliceblue;}
-				th{width: 230px;height: 40px;}
-				tr:hover{background-color: #999999;}
-				td{width: 230px;height: 40px;}
-				#td{border: 3px solid #000000;width: 60px;height: 40px;background-color: #6495ED;}
-				#A2{height: 40px;text-decoration: none;background-color: #6495ED;border: 3px solid #000000;
-				margin-left: 12%;padding: 8px 8px 8px 8px;border-radius: 7px 7px 7px 7px;font-size: large;}
-				a:hover{color: #000000;}
-			</style>
-	</head>
-	<body>
-	<div id="app">
-		<div id="a1">
-			<h2 style="color:#6495ED;width: 30%;height: 90px;float: left;font-size: larger">~~宿舍信息~~</h2>
-		</div>
-		<div id="a4">
-			<div  id="f1">
-				<input type="search" v-model="FuzzyData" id="s1" placeholder="请输入查询信息"/>
-				<el-button @click="SelectByFuzzy()"  id="submit">搜索</el-button>
-			</div>
+        tr:hover {
+            background-color: #999999;
+        }
 
-		</div>
-		<div id="t1">
-						<el-table id="tab1" border="1" cellspacing="0" cellpadding="" size="small" current-row-key="id" :data="pros" stripe highlight-current-row>
+        td {
+            width: 230px;
+            height: 40px;
+        }
 
-							<el-table-column prop="st_class" align="center" label="班级"></el-table-column>
+        a:hover {
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="a1">
+        <h2 style="color:#6495ED;width: 30%;height: 90px;float: left;font-size: larger">~~宿舍信息~~</h2>
+    </div>
+    <div id="a4">
+        <div id="f1">
+            <input type="search" v-model="FuzzyData" id="s1" placeholder="请输入查询信息"/>
+            <el-button @click="SelectByFuzzy()" id="submit">搜索</el-button>
+        </div>
 
-							<el-table-column prop="st_name" label="姓名" align="center"></el-table-column>
+    </div>
+    <div id="t1">
+        <el-table id="tab1" border="1" cellspacing="0" cellpadding="" size="small" current-row-key="id" :data="pros.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+                  stripe highlight-current-row>
 
-							<el-table-column prop="building_no" label="楼号" align="center"></el-table-column>
+            <el-table-column prop="st_class" align="center" label="班级"></el-table-column>
 
-							<el-table-column prop="dormitory_no" label="宿舍号" align="center"></el-table-column>
+            <el-table-column prop="st_name" label="姓名" align="center"></el-table-column>
 
-							<el-table-column prop="st_id" label="操作" align="center">
+            <el-table-column prop="building_no" label="楼号" align="center"></el-table-column>
 
-								<template slot-scope="scope">
+            <el-table-column prop="dormitory_no" label="宿舍号" align="center"></el-table-column>
 
-									<el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
+            <el-table-column prop="st_id" label="操作" align="center">
 
-									<el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
+                <template slot-scope="scope">
 
-								</template>
+                    <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
 
-							</el-table-column>
-						</el-table>
-		</div>
-		<div class="add-form">
-			<el-dialog title="编辑检查项" :visible.sync="dialogFormVisible4Edit">
-				<el-form ref="dataAddForm" :model="formData"  label-position="right" label-width="100px">
-					<el-row>
+                    <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
 
-						<el-col :span="12">
+                </template>
 
-							<el-form-item label="班级" prop="st_class">
+            </el-table-column>
+        </el-table>
+        <div style="text-align:center">
+            <el-pagination hide-on-single-page background layout="prev, pager, next,total" :total="listLength"
+                           :page-size="pageSize" @current-change="current_change"></el-pagination>
+        </div>
+    </div>
+    <div class="add-form">
+        <el-dialog title="编辑检查项" :visible.sync="dialogFormVisible4Edit">
+            <el-form ref="dataAddForm" :model="formData" label-position="right" label-width="100px">
+                <el-row>
 
-								<el-input v-model="formData.st_class"/>
+                    <el-col :span="12">
 
-							</el-form-item>
+                        <el-form-item label="班级" prop="st_class">
 
-						</el-col>
-						<el-col :span="12">
+                            <el-input v-model="formData.st_class"/>
 
-							<el-form-item label="姓名">
+                        </el-form-item>
 
-								<el-input v-model="formData.st_name" prop="st_name"></el-input>
+                    </el-col>
+                    <el-col :span="12">
 
-							</el-form-item>
+                        <el-form-item label="姓名">
 
-						</el-col>
+                            <el-input v-model="formData.st_name" prop="st_name"></el-input>
 
+                        </el-form-item>
 
-					</el-row>
-					<el-row>
-						<el-col :span="12">
+                    </el-col>
 
-							<el-form-item label="楼号" prop="building_no">
 
-								<el-input v-model="formData.building_no"/>
+                </el-row>
+                <el-row>
+                    <el-col :span="12">
 
-							</el-form-item>
+                        <el-form-item label="楼号" prop="building_no">
 
-						</el-col>
+                            <el-input v-model="formData.building_no"/>
 
-						<el-col :span="12">
+                        </el-form-item>
 
-							<el-form-item label="宿舍号">
+                    </el-col>
 
-								<el-input v-model="formData.dormitory_no" prop="dormitory_no"></el-input>
+                    <el-col :span="12">
 
-							</el-form-item>
+                        <el-form-item label="宿舍号">
 
-						</el-col>
-					</el-row>
+                            <el-input v-model="formData.dormitory_no" prop="dormitory_no"></el-input>
 
-				</el-form>
+                        </el-form-item>
 
-				<div slot="footer" class="dialog-footer">
+                    </el-col>
+                </el-row>
 
-					<el-button @click="dialogFormVisible4Edit = false">取消</el-button>
+            </el-form>
 
-					<el-button type="primary" @click="handleEdit()">确定</el-button>
+            <div slot="footer" class="dialog-footer">
 
-				</div>
+                <el-button @click="dialogFormVisible4Edit = false">取消</el-button>
 
-			</el-dialog>
-		</div>
-		<div class="add-form">
-			<el-dialog title="新增学生" :visible.sync="dialogFormVisible">
-				<el-form ref="dataAddForm" :model="formData"  label-position="right" label-width="100px">
-					<el-row>
+                <el-button type="primary" @click="handleEdit()">确定</el-button>
 
-						<el-col :span="12">
+            </div>
 
-							<el-form-item label="班级" prop="st_class">
+        </el-dialog>
+    </div>
+    <div class="add-form">
+        <el-dialog title="新增学生" :visible.sync="dialogFormVisible">
+            <el-form ref="dataAddForm" :model="formData" label-position="right" label-width="100px">
+                <el-row>
 
-								<el-input v-model="formData.st_class"/>
+                    <el-col :span="12">
 
-							</el-form-item>
+                        <el-form-item label="班级" prop="st_class">
 
-						</el-col>
-						<el-col :span="12">
+                            <el-input v-model="formData.st_class"/>
 
-							<el-form-item label="姓名">
-
-								<el-input v-model="formData.st_name" prop="st_name"></el-input>
+                        </el-form-item>
 
-							</el-form-item>
-
-						</el-col>
-
-
-					</el-row>
-					<el-row>
-						<el-col :span="12">
-
-							<el-form-item label="楼号" prop="building_no">
-
-								<el-input v-model="formData.building_no"/>
-
-							</el-form-item>
-
-						</el-col>
-
-						<el-col :span="12">
-
-							<el-form-item label="宿舍号">
-
-								<el-input v-model="formData.dormitory_no" prop="dormitory_no"></el-input>
-
-							</el-form-item>
-
-						</el-col>
-					</el-row>
-				</el-form>
-
-				<div slot="footer" class="dialog-footer">
-
-					<el-button @click="dialogFormVisible = false">取消</el-button>
-
-					<el-button type="primary" @click="handleAdd()">确定</el-button>
-
-				</div>
-			</el-dialog>
-		</div>
-	</div>
-	</body>
-	<script src="../plugins/elementui/index.js"></script>
-	<script>
-		var vue = new Vue({
-			el:"#app",
-			data:{
-				pros:[],
-				currentList:{},
-				FuzzyData:"",
-				dialogFormVisible:false,
-				dialogFormVisible4Edit:false,
-				formData:{},
-			},
-			created(){
-			this.select();
-			},
-			methods: {
-				restFrom(){
-					this.formData={};
-				},
-				select(){
-					axios.get("../Dormitory").then((res)=>{
-						console.log(res.data.data);
-						this.pros = res.data.data;
-					})
-				},
-				SelectByFuzzy(){
-					axios.get("../Dormitory/FuzzySelect/"+this.FuzzyData).then((res)=>{
-						console.log(res.data.data);
-						this.pros = res.data.data;
-					})
-				},
-				showAddInput(){
-					this.dialogFormVisible =true;
-					this.restFrom();
-				},
-				handleUpdate(row){
-					var i = parseInt(row.st_id)
-					axios.get("../Dormitory/"+i).then((res)=>{
-						if(res.data.code === 20041){
-							this.formData = res.data.data;
-							this.dialogFormVisible4Edit =true;
-						}else this.$message.error(res.data.msg);
-					})
-				},handleEdit(){
-					axios.put("../Dormitory", this.formData).then((res) => {
-						console.log(res.data);
-						if (res.data.code === 20031) {
-							this.dialogFormVisible4Edit = false;
-							this.$message.success("修改成功");
-						} else if (res.data.code === 20030) {
-							this.$message.error("修改失败");
-						} else {
-							this.$message.error(res.data.msg);
-						}
-					}).finally(() => {
-						this.select();
-					});
-
-				},
-				handleDelete(row) {
-					//1.弹提示框
-					this.$confirm("此操作永久删除数据，是否继续？", "提示", {
-						type: 'info'
-					}).then(() => {
-						axios.delete("/Dormitory/" + row.st_id).then((res) => {
-							if (res.data.code == 20021) {
-								//2、做删除业务
-								this.$message.success("删除成功")
-							} else {
-								this.$message.error("删除失败");
-							}
-						})
-					}).catch(() => {
-						//3、取消删除操作
-						this.$message.info("取消删除操作");
-					}).finally(() => {
-						this.SelectByPro();
-					});
-				},
+                    </el-col>
+                    <el-col :span="12">
 
+                        <el-form-item label="姓名">
+
+                            <el-input v-model="formData.st_name" prop="st_name"></el-input>
+
+                        </el-form-item>
+
+                    </el-col>
+
+
+                </el-row>
+                <el-row>
+                    <el-col :span="12">
+
+                        <el-form-item label="楼号" prop="building_no">
+
+                            <el-input v-model="formData.building_no"/>
+
+                        </el-form-item>
+
+                    </el-col>
+
+                    <el-col :span="12">
+
+                        <el-form-item label="宿舍号">
+
+                            <el-input v-model="formData.dormitory_no" prop="dormitory_no"></el-input>
+
+                        </el-form-item>
+
+                    </el-col>
+                </el-row>
+            </el-form>
+
+            <div slot="footer" class="dialog-footer">
+
+                <el-button @click="dialogFormVisible = false">取消</el-button>
+
+                <el-button type="primary" @click="handleAdd()">确定</el-button>
+
+            </div>
+        </el-dialog>
+    </div>
+</div>
+</body>
+<script src="../plugins/elementui/index.js"></script>
+<script>
+    var vue = new Vue({
+        el: "#app",
+        data: {
+            pros: [],
+            currentList: {},
+            FuzzyData: [],
+            dialogFormVisible: false,
+            dialogFormVisible4Edit: false,
+            formData: {},
+			pageSize: 10,//指定展示多少条
+			currentPage: 1//当前页码
+        },
+		computed: {
+			listLength: function () {
+				return this.pros.length
 			}
-		})
-	</script>
+		},
+        created() {
+            this.select();
+        },
+        methods: {
+			current_change(currentPage) {
+				this.currentPage = currentPage;
+			},
+            restFrom() {
+                this.formData = {};
+            },
+            select() {
+                axios.get("../Dormitory").then((res) => {
+                    console.log(res.data.data);
+                    this.pros = res.data.data;
+                })
+            },
+            SelectByFuzzy() {
+                axios.get("../Dormitory/FuzzySelect/" + this.FuzzyData).then((res) => {
+                    console.log(res.data.data);
+                    this.pros = res.data.data;
+                })
+            },
+            showAddInput() {
+                this.dialogFormVisible = true;
+                this.restFrom();
+            },
+            handleUpdate(row) {
+                var i = parseInt(row.st_id)
+                axios.get("../Dormitory/" + i).then((res) => {
+                    if (res.data.code === 20041) {
+                        this.formData = res.data.data;
+                        this.dialogFormVisible4Edit = true;
+                    } else this.$message.error(res.data.msg);
+                })
+            }, handleEdit() {
+                axios.put("../Dormitory", this.formData).then((res) => {
+                    console.log(res.data);
+                    if (res.data.code === 20031) {
+                        this.dialogFormVisible4Edit = false;
+                        this.$message.success("修改成功");
+                    } else if (res.data.code === 20030) {
+                        this.$message.error("修改失败");
+                    } else {
+                        this.$message.error(res.data.msg);
+                    }
+                }).finally(() => {
+                    this.select();
+                });
+
+            },
+            handleDelete(row) {
+                //1.弹提示框
+                this.$confirm("此操作永久删除数据，是否继续？", "提示", {
+                    type: 'info'
+                }).then(() => {
+                    axios.delete("/Dormitory/" + row.st_id).then((res) => {
+                        if (res.data.code == 20021) {
+                            //2、做删除业务
+                            this.$message.success("删除成功")
+                        } else {
+                            this.$message.error("删除失败");
+                        }
+                    })
+                }).catch(() => {
+                    //3、取消删除操作
+                    this.$message.info("取消删除操作");
+                }).finally(() => {
+                    this.SelectByPro();
+                });
+            },
+
+        }
+    })
+</script>
 
 </html>
