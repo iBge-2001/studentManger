@@ -10,4 +10,5 @@ public interface AcademyService {
     public List<Student> getByProfessionId(String profession_name);
     public Integer getAcademyCount();
 
+    List<Student> getByS_Id(String student_id);
 }

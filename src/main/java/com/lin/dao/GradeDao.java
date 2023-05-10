@@ -24,8 +24,11 @@ public interface GradeDao {
                     many = @Many(select = "com.lin.dao.GradeDao.GetDistinctCourse"))
     })
     public List<Grade> GetAll(String st_profession);
+
+    //根据学生id查询其成绩
     @Select("select *  from grade where st_id = ${st_id}")
     public List<Course> GetDistinctCourse(long st_id);
+
     @Update("<script><foreach collection = 'list' item ='item' open='' close='' separator=';'> update grade set grade = #{item.grade} where st_id = #{item.st_id} and course = #{item.course}</foreach></script>")
     public int updateGrade(@Param("list") List<Course> list);
     @Select("select course from course where st_profession = #{st_profession}")

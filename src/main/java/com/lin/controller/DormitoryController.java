@@ -8,6 +8,7 @@ import com.lin.service.DormitoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,6 +32,18 @@ public class DormitoryController {
         System.out.println(dormitory!=null ? "查询成功" :"查询失败");
         return new Result(code,dormitory,msg);
     }
+
+    @GetMapping("/GetOne/{id}")
+    public Result getOne(@PathVariable long id) {
+        Dormitory dormitory = dormitoryService.selectById(id);
+        List<Dormitory> dormitories = new ArrayList<>();
+        dormitories.add(dormitory);
+        Integer code = dormitory !=null ? Code.GET_OK:Code.GET_ERR;
+        String msg = dormitory!=null ? "查询成功" :"查询失败";
+        System.out.println(dormitory!=null ? "查询成功" :"查询失败");
+        return new Result(code,dormitories,msg);
+    }
+
     @PutMapping
     public Result update(@RequestBody Dormitory dormitory) {
         boolean flag = dormitoryService.update(dormitory);

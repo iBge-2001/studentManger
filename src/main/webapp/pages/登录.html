@@ -105,8 +105,15 @@
 							if(true){
 								axios.post("../login",this.formData).then((res) =>{
 									if (res.data.code === 20051){
-										console.log(res.data.msg)
-										window.location.href = "./index.html";
+										window.localStorage.setItem("user",JSON.stringify(res.data.data))
+										if (res.data.data.type === 1){
+											console.log(res.data.msg)
+											window.location.href = "./index.html";
+										}else {
+											console.log(res.data.msg)
+											window.location.href = "./studentIndex.html";
+										}
+
 									}else {
 										alert(res.data.msg)
 									}

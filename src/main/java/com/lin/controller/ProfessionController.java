@@ -26,6 +26,7 @@ public class ProfessionController {
     }
     @GetMapping("/{professionName}")
     public Result getByProId(@PathVariable String professionName) {
+
         List<Student> studentList =  academyService.getByProfessionId(professionName);
         Integer code = studentList!=null ? Code.GET_OK:Code.GET_ERR;
         String msg = studentList!=null ? "查询成功" :"查询失败";
@@ -38,5 +39,13 @@ public class ProfessionController {
         String msg = count !=null ?"查询成功" :"查询失败";
         System.out.println(count !=null ? "查询成功" :"查询失败");
         return new Result(code,count,msg);
+    }
+
+    @GetMapping("/OneStudent/{student_id}")
+    public Result getByS_Id(@PathVariable String student_id) {
+        List<Student> studentList =  academyService.getByS_Id(student_id);
+        Integer code = studentList!=null ? Code.GET_OK:Code.GET_ERR;
+        String msg = studentList!=null ? "查询成功" :"查询失败";
+        return new Result(code,studentList,msg);
     }
 }

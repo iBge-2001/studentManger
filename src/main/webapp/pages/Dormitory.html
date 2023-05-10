@@ -86,7 +86,7 @@
     <div id="a1">
         <h2 style="color:#6495ED;width: 30%;height: 90px;float: left;font-size: larger">~~宿舍信息~~</h2>
     </div>
-    <div id="a4">
+    <div id="a4" v-if="isAdmin">
         <div id="f1">
             <input type="search" v-model="FuzzyData" id="s1" placeholder="请输入查询信息"/>
             <el-button @click="SelectByFuzzy()" id="submit">搜索</el-button>
@@ -105,7 +105,7 @@
 
             <el-table-column prop="dormitory_no" label="宿舍号" align="center"></el-table-column>
 
-            <el-table-column prop="st_id" label="操作" align="center">
+            <el-table-column prop="st_id" label="操作" align="center" v-if="isAdmin">
 
                 <template slot-scope="scope">
 
@@ -254,7 +254,8 @@
             dialogFormVisible4Edit: false,
             formData: {},
 			pageSize: 10,//指定展示多少条
-			currentPage: 1//当前页码
+			currentPage: 1,//当前页码
+            isAdmin:true
         },
 		computed: {
 			listLength: function () {
@@ -262,7 +263,14 @@
 			}
 		},
         created() {
-            this.select();
+            let user = JSON.parse(localStorage.getItem("user"));
+
+            if (user.type === 1){
+                this.select();
+            }else {
+                this.isAdmin = false
+                this.SelectByS_id(user.id)
+            }
         },
         methods: {
 			current_change(currentPage) {
@@ -275,6 +283,13 @@
                 axios.get("../Dormitory").then((res) => {
                     console.log(res.data.data);
                     this.pros = res.data.data;
+                })
+            },
+            SelectByS_id(student_id) {
+                axios.get("../Dormitory/GetOne/" + student_id).then((res) => {
+                    if (res.data.code === 20041) {
+                        this.pros = res.data.data;
+                    } else this.$message.error(res.data.msg);
                 })
             },
             SelectByFuzzy() {
@@ -291,7 +306,7 @@
                 var i = parseInt(row.st_id)
                 axios.get("../Dormitory/" + i).then((res) => {
                     if (res.data.code === 20041) {
-                        this.formData = res.data.data;
+                        this.pros = res.data.data;
                         this.dialogFormVisible4Edit = true;
                     } else this.$message.error(res.data.msg);
                 })

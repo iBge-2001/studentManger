@@ -28,4 +28,9 @@ public class AcademyServiceImpl implements AcademyService {
     public Integer getAcademyCount() {
         return academyDao.getAcademyCount();
     }
+
+    @Override
+    public List<Student> getByS_Id(String student_id) {
+        return academyDao.getByS_id(student_id);
+    }
 }

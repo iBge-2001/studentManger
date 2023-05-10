@@ -25,8 +25,9 @@ public class LoginController {
         if (!user1.getPassword().equals(user.getPassword())){
             return new Result(Code.POST_ERR,null,"账号或密码出错");
         }
-        session.setAttribute("user",user);
-        return new Result(Code.POST_OK,null,"登录成功");
+        session.setAttribute("user",user1);
+        System.out.println(user1);
+        return new Result(Code.POST_OK,user1,"登录成功");
     }
 
     @GetMapping

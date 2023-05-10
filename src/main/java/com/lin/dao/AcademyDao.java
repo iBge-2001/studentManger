@@ -15,4 +15,7 @@ public interface AcademyDao {
     public List<Student> getByProfessionId(String st_profession);
     @Select("SELECT SUM(count.count),count.academy FROM count GROUP BY count.academy")
     public Integer getAcademyCount();
+    //查询单个学生的信息
+    @Select("select * from detailview where st_id = #{student_id}")
+    List<Student> getByS_id(String student_id);
 }

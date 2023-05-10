@@ -8,8 +8,8 @@ public class Course {
 
     @Override
     public String toString() {
-        return "Course{" +
-                "grade=" + grade +
+        return "Course{" + course+
+                ",grade=" + grade +
                 '}';
     }
 
