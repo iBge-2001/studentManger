@@ -31,10 +31,10 @@
 		</div>
 		<div id="a3">
 		</div>
-		<div id="a2">
-			<a href="添加用户.html" onclick="add()" id="A2">添加用户</a>
-		</div>
 		<div id="t1">
+			<div id="a2">
+				<el-button href="./添加用户.html">添加用户</el-button>
+			</div>
 			<div class="table">
 				<table border="1" style="text-align:center" id="table" cellspacing="0">
 					<el-table  border="1" cellspacing="" label-width="10px"  cellpadding="" size="small" current-row-key="id" :data="UserList.slice((currentPage-1)*pageSize,currentPage*pageSize)" stripe highlight-current-row>
@@ -71,6 +71,16 @@
 							if(res.data.code === 20041){
 								this.UserList = res.data.data;
 							}else this.$message.error(res.data.msg);
+						})
+					},
+					handleUpdate(row) {
+						console.log(row);
+						axios.get("../User/" + row.st_id).then((res) => {
+							if (res.data.code === 20041) {
+								this.formData = res.data.data;
+								this.formData.length = res.data.data.length;
+								this.dialogFormVisible4Edit = true;
+							} else this.$message.error(res.data.msg);
 						})
 					}
 				}

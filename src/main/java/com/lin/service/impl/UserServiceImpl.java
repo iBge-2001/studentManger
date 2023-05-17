@@ -22,4 +22,14 @@ public class UserServiceImpl implements UserService {
     public List<User> getAll() {
         return userDao.getAll();
     }
+
+    @Override
+    public Boolean save(User user) {
+        return userDao.saveUser(user)>0;
+    }
+
+    @Override
+    public Boolean updatePwd(User user) {
+        return userDao.updatePwd(user)>0;
+    }
 }

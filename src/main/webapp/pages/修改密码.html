@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html>
+
+<script src="../js/vue.js"></script>
+<script src="../js/axios-0.18.0.js"></script>
+<script src="../plugins/elementui/index.js"></script>
+<link rel="stylesheet" href="../plugins/elementui/index.css">
+<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+<script type="text/javascript" src="../js/jquery1.8.3.min.js"></script>
 	<head>
 		<meta charset="utf-8">
 		<title>修改密码</title>
 		<style type="text/css">
 			#a1{width: 40%;height: 400px;box-shadow: 10px 0px 35px 10px #6495ED;margin-top: 90px;float: left;border-radius: 0px 27px 27px 0px;}
+			#app{right: 1px}
 			.i2{border-radius: 10px 10px 10px 10px;height: 30px;width: 230px;}
 			.i3{border-radius: 20px 20px 20px 20px;color: #000000;height: 40px;width: 180px;font-size: x-large;background-color: white;
 			border-width: 4px; }
@@ -14,63 +22,68 @@
 		</style>
 	</head>
 	<body>
-		<center>
 			<div id="a3">
-				
 			</div>
 			<div id="a2">
 				<img src="../img/书2.jpg" id="img1" align="right">
 			</div>
 			<div id="a1">
 				<h1>~~修改密码~~</h1>
-				<hr width="70%" size="3" color="black">
-				<form action="" method="">
-					<br>
-					<input type="text" name="zhanghao" id="zhanghao" placeholder="账号" class="i2" onkeyup="bbbclick()" onkeypress="if(event.keyCode==13) next(this)"/><br>
-				<span></span><br>
-				<input type="password" name="xmima" id="xmima" placeholder="新密码" class="i2" onkeyup="bbbclick()" onkeypress="if(event.keyCode==13) next(this)"/><br><br>
-				<input type="password" name="mima" id="mima" placeholder="确认密码" class="i2" onkeyup="bbbclick()" onkeypress="if(event.keyCode==13) next(this)"/><br><br>
-				</form><br><button type="submit" class="i3" value="" onclick="aaaclick()" id="i3"/>修      改</button>
+				<hr width="100%" size="3" color="black">
+				<div  id="app">
+					<el-form ref="form" :model="form" label-width="50%">
+						<el-form-item label="当前密码">
+							<el-input v-model="form.password" style="width: 60%" ></el-input>
+						</el-form-item>
+						<el-form-item label="输入密码">
+							<el-input  type="password" v-model="form.newPassword" style="width: 60%" ></el-input>
+						</el-form-item>
+						<el-form-item label="再次确认密码" >
+							<el-input type="password" v-model="form.rePassword" style="width: 60%"></el-input>
+						</el-form-item>
+						<el-form-item>
+						<el-button type="primary" @click="onSubmit">立即修改</el-button>
+							<el-button>取消</el-button>
+						</el-form-item>
+					</el-form>
+				</div>
 			</div>
-		</center>
 		<script type="text/javascript">
-			function aaaclick()
-			{
-				var l1=document.getElementById("zhanghao").value;
-				var password=document.getElementById("mima").value;
-				var repassword=document.getElementById("xmima").value;
-				document.getElementById("i3").disabled=true;
-				if(l1=="")
-				{alert("账号为空");document.getElementById("i3").disabled=true;}
-				if(password=="")
-				{alert("密码为空");document.getElementById("i3").disabled=true;}
-				else if(repassword==password)
-				{alert("修改成功！");}
-				else
-				{alert("账号或密码不正确");}
-			}
-			function bbbclick()
-			{
-				var l1=document.getElementById("zhanghao").value;
-				var password=document.getElementById("mima").value;
-				if(l1!==""&&password!="")
-				{
-				document.getElementById("i3").disabled=false;
-				}
-			}
-			function next(t)
-			{
-				var sum=document.getElementsByTagName("input");
-				for(var i=0;i<sum.length;i++)
-				{
-					if(i==(sum.length-1))
-					{sum[0].focus();break;}
-					else if(t==sum[i])
-					{
-						sum[i+1].focus();break;
+			var vue = new Vue({
+				el: '#a1',
+				data: {
+					form: {
+						user:"",
+						password: "",
+						newPassword: "",
+						rePassword: ""
+					}
+				},
+				methods: {
+					onSubmit() {
+						this.$message.success("哥们被点了");
+						console.log(this.form);
+						if (this.from.rePassword===this.form.newPassword){
+							axios.put("../User", this.form).then((res) => {
+								console.log(this.form);
+								if (res.data.code === 20031) {
+									this.dialogFormVisible4Edit = false;
+									this.$message.success("修改成功！！");
+								} else if (res.data.code === 20030) {
+									this.$message.error("修改失败，请检查密码是否正确！！");
+								} else {
+									this.$message.error(res.data.msg);
+								}
+							}).finally(() => {
+
+							})
+						} else {
+							this.$message.error("密码不一致，请检查输入的密码是否相同");
+							alert("密码不一致，请检查输入的密码是否相同");
+						}
 					}
 				}
-			}
+			})
 		</script>
 	</body>
 </html>
