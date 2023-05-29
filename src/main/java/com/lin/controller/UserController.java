@@ -6,6 +6,7 @@ import com.lin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -29,8 +30,9 @@ public class UserController {
     }
     @PutMapping
     public Result updatePwd(@RequestBody User user){
+        System.out.println("\n"+user+"\n");
         Boolean aBoolean = userService.updatePwd(user);
         System.out.println(aBoolean);
-        return new Result(aBoolean? Code.DELETE_OK:Code.UPDATE_ERR,aBoolean);
+        return new Result(aBoolean? Code.UPDATE_OK:Code.UPDATE_ERR,aBoolean);
     }
 }

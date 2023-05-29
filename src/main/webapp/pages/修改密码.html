@@ -61,14 +61,18 @@
 				},
 				methods: {
 					onSubmit() {
-						this.$message.success("哥们被点了");
 						console.log(this.form);
-						if (this.from.rePassword===this.form.newPassword){
-							axios.put("../User", this.form).then((res) => {
-								console.log(this.form);
+						if (this.form.rePassword === this.form.newPassword){
+							//获取当前用户信息
+							let user = JSON.parse(localStorage.getItem("user"))
+							//更换新密码
+							user.password = this.form.newPassword
+							this.$message.error("前后一致");
+							axios.put("../User", user).then((res) => {
 								if (res.data.code === 20031) {
-									this.dialogFormVisible4Edit = false;
 									this.$message.success("修改成功！！");
+									//更新session
+									localStorage.setItem("user",JSON.stringify(user))
 								} else if (res.data.code === 20030) {
 									this.$message.error("修改失败，请检查密码是否正确！！");
 								} else {
@@ -79,7 +83,6 @@
 							})
 						} else {
 							this.$message.error("密码不一致，请检查输入的密码是否相同");
-							alert("密码不一致，请检查输入的密码是否相同");
 						}
 					}
 				}

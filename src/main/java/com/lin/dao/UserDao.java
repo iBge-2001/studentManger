@@ -16,9 +16,9 @@ public interface UserDao {
     public List<User> getAll();
     @Insert("INSERT INTO account(user,password,id,type) VALUES(#{user},#{password},#{id},#{type})")
     public int saveUser(User user);
-    @Delete("delete from user where user = #{user}")
+    @Delete("delete from account where user = #{user}")
     public int Delete(int user);
-    @Update("update password =#{password} from account where user = #{username}")
+    @Update("update account set password =#{password}  where id = #{id}")
     public int updatePwd(User user);
 
 }
