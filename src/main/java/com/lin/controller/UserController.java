@@ -29,9 +29,12 @@ public class UserController {
         return new Result(flag? Code.SAVE_OK:Code.Save_ERR,flag);
     }
     @PutMapping
-    public Result updatePwd(@RequestBody User user){
+    public Result updatePwd(HttpSession session, @RequestBody User user){
+        User user1 = (User) session.getAttribute("user");
+        user1.setNewPassword(user.getNewPassword());
         System.out.println("\n"+user+"\n");
-        Boolean aBoolean = userService.updatePwd(user);
+        System.out.println("\n"+user1+"\n");
+        Boolean aBoolean = userService.updatePwd(user1);
         System.out.println(aBoolean);
         return new Result(aBoolean? Code.UPDATE_OK:Code.UPDATE_ERR,aBoolean);
     }

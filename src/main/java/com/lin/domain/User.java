@@ -6,7 +6,7 @@ public class User {
     private String user;
     private String password;
     private int type;
-
+    private String newPassword;
     public int getType() {
         return type;
     }
@@ -47,6 +47,21 @@ public class User {
         this.password = password;
     }
 
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public User(long id, String user, String password, int type, String newPassword) {
+        this.id = id;
+        this.user = user;
+        this.password = password;
+        this.type = type;
+        this.newPassword = newPassword;
+    }
 
     @Override
     public String toString() {

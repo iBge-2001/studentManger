@@ -18,7 +18,7 @@ public interface UserDao {
     public int saveUser(User user);
     @Delete("delete from account where user = #{user}")
     public int Delete(int user);
-    @Update("update account set password =#{password}  where id = #{id}")
+    @Update("update account set password =#{newPassword}  where user = '${user}'")
     public int updatePwd(User user);
 
 }

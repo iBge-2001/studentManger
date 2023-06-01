@@ -53,7 +53,6 @@
 				el: '#a1',
 				data: {
 					form: {
-						user:"",
 						password: "",
 						newPassword: "",
 						rePassword: ""
@@ -62,24 +61,14 @@
 				methods: {
 					onSubmit() {
 						console.log(this.form);
-						if (this.form.rePassword === this.form.newPassword){
-							//获取当前用户信息
-							let user = JSON.parse(localStorage.getItem("user"))
-							//更换新密码
-							user.password = this.form.newPassword
-							this.$message.error("前后一致");
-							axios.put("../User", user).then((res) => {
+						if (this.form.newPassword===this.form.rePassword){
+							axios.put("../User", this.form).then((res) => {
+								console.log(this.form);
 								if (res.data.code === 20031) {
 									this.$message.success("修改成功！！");
-									//更新session
-									localStorage.setItem("user",JSON.stringify(user))
 								} else if (res.data.code === 20030) {
 									this.$message.error("修改失败，请检查密码是否正确！！");
-								} else {
-									this.$message.error(res.data.msg);
 								}
-							}).finally(() => {
-
 							})
 						} else {
 							this.$message.error("密码不一致，请检查输入的密码是否相同");
