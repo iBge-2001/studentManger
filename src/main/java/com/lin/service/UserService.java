@@ -9,4 +9,5 @@ public interface UserService {
     public List<User> getAll();
     public Boolean save(User user);
     public Boolean updatePwd(User user);
+    public Boolean Delete(String user);
 }

@@ -53,6 +53,22 @@
 				</table>
 		</div>
 		</div>
+		<div class="add-form">
+		<el-dialog title="编辑检查项" :visible.sync="dialogFormVisible4Edit">
+			<el-form ref="form" :model="form" label-width="50%">
+				<el-form-item label="输入密码">
+					<el-input  type="password" v-model="form.newPassword" style="width: 60%" ></el-input>
+				</el-form-item>
+				<el-form-item label="再次确认密码" >
+					<el-input type="password" v-model="form.rePassword" style="width: 60%"></el-input>
+				</el-form-item>
+				<el-form-item>
+					<el-button type="primary" @click="confirmUpdate">立即修改</el-button>
+					<el-button @click="dialogFormVisible4Edit = false">取消</el-button>
+				</el-form-item>
+			</el-form>
+		</el-dialog>
+		</div>
 	</div>
 		<script type="text/javascript">
 			var vue =new Vue({
@@ -61,27 +77,68 @@
 					UserList:{},
 					pageSize:12,//指定展示多少条
 					currentPage:1 ,//当前页码
+					form: {
+						user:"",
+						password: "",
+						newPassword: "",
+						rePassword: ""
+					},
+					dialogFormVisible4Edit:""
 				},
 				created(){
 					this.getAllUser();
+					this.dialogFormVisible4Edit=false;
 				},
-				methods:{
-					getAllUser(){
-						axios.get("/User").then((res)=>{
-							if(res.data.code === 20041){
+				methods: {
+					getAllUser() {
+						axios.get("/User").then((res) => {
+							if (res.data.code === 20041) {
 								this.UserList = res.data.data;
-							}else this.$message.error(res.data.msg);
+							} else this.$message.error(res.data.msg);
 						})
 					},
 					handleUpdate(row) {
 						console.log(row);
-						axios.get("../User/" + row.st_id).then((res) => {
+						axios.get("/User/one/" + row.user).then((res) => {
 							if (res.data.code === 20041) {
-								this.formData = res.data.data;
-								this.formData.length = res.data.data.length;
+								this.form = res.data.data;
 								this.dialogFormVisible4Edit = true;
 							} else this.$message.error(res.data.msg);
-						})
+						});
+					},
+					confirmUpdate(){
+						if (this.form.newPassword===this.form.rePassword){
+							axios.put("../User", this.form).then((res) => {
+								console.log(this.form);
+								if (res.data.code === 20031) {
+									this.$message.success("修改成功！！");
+									this.getAllUser();
+									this.dialogFormVisible4Edit=false;
+								}
+							})
+						} else {
+							this.$message.error("密码不一致，请检查输入的密码是否相同");
+						}
+					},
+					handleDelete(){
+						this.$confirm("此操作永久删除数据，是否继续？", "提示", {
+							type: 'info'
+						}).then(() => {
+							axios.delete("/user/" + row.user).then((res) => {
+								if (res.data.code == 20021) {
+									//2、做删除业务
+									this.$message.success("删除成功")
+								} else {
+									this.$message.error("删除失败");
+								}
+							})
+						}).catch(() => {
+							//3、取消删除操作
+							this.$message.info("取消删除操作");
+						}).finally(() => {
+							this.getAllUser();
+						});
+
 					}
 				}
 			})

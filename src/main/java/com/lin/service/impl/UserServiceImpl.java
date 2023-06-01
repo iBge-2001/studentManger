@@ -32,4 +32,9 @@ public class UserServiceImpl implements UserService {
     public Boolean updatePwd(User user) {
         return userDao.updatePwd(user)>0;
     }
+
+    @Override
+    public Boolean Delete(String user) {
+        return userDao.Delete(user)>0;
+    }
 }

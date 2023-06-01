@@ -17,7 +17,7 @@ public interface UserDao {
     @Insert("INSERT INTO account(user,password,id,type) VALUES(#{user},#{password},#{id},#{type})")
     public int saveUser(User user);
     @Delete("delete from account where user = #{user}")
-    public int Delete(int user);
+    public int Delete(String user);
     @Update("update account set password =#{newPassword}  where user = '${user}'")
     public int updatePwd(User user);
 
