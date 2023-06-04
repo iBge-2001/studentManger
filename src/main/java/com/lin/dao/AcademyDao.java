@@ -21,8 +21,8 @@ public interface AcademyDao {
     @Select("select * from detailview where st_id = #{student_id}")
     List<Student> getByS_id(String student_id);
     //获取所有班级
-    @Select("select classname from academy")
-    public List<String> getClassName();
+    @Select("select classname from academy where profession_name = #{profession_name}")
+    public List<String> getClassName(String profession_name);
     //修改班级信息
     @Update("update academy set profession_id=#{profession_id},academy=#{academy},instructor=#{instructor},classname=#{classname} where classname = #{classname}")
     public int updateClass(ClassDetail classDetail);

@@ -17,6 +17,7 @@ public class StudentController {
     private StudentService studentService;
     @PostMapping
     public Result save(@RequestBody Student student) {
+        System.out.println(student);
         boolean flag =  studentService.save(student);
         System.out.println(flag);
         return new Result(flag? Code.SAVE_OK:Code.Save_ERR,flag);

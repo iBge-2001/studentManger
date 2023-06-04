@@ -10,7 +10,7 @@ public interface AcademyService {
     public List<Academy> getProfession();
     public List<Student> getByProfessionId(String profession_name);
     public Integer getAcademyCount();
-    public List<String> getClassName();
+    public List<String> getClassName(String profession_name);
     List<Student> getByS_Id(String student_id);
     public Boolean updateClass(ClassDetail classDetail);
 }

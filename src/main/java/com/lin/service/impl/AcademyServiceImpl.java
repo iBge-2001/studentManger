@@ -31,8 +31,8 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
-    public List<String> getClassName() {
-        return academyDao.getClassName();
+    public List<String> getClassName(String profession_name) {
+        return academyDao.getClassName(profession_name);
     }
     @Override
     public List<Student> getByS_Id(String student_id) {

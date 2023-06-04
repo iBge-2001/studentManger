@@ -54,7 +54,7 @@
         <el-pagination hide-on-single-page background layout="prev, pager, next,total" :total="listLength"
                        :page-size="pageSize" @current-change="current_change"></el-pagination>
     </div>
-    <div class="add-form">
+<!--    <div class="add-form">
         <el-dialog title="编辑检查项" :visible.sync="dialogFormVisible4Edit">
             <el-form ref="dataAddForm" :model="formData" label-position="right" label-width="100px">
                 <el-row>
@@ -130,7 +130,7 @@
             </div>
 
         </el-dialog>
-    </div>
+    </div>-->
     <div class="add-form">
         <el-dialog title="新增学生" :visible.sync="dialogFormVisible">
             <el-form ref="dataAddForm" :model="formData" label-position="right" label-width="100px">
@@ -140,7 +140,7 @@
 
                         <el-form-item label="院系" prop="st_academy">
 
-                            <el-input v-model="formData.st_academy"/>
+                            <el-input v-model="formData.st_academy"></el-input>
 
                         </el-form-item>
 
@@ -158,7 +158,7 @@
                 <el-row>
                     <el-col :span="12">
                         <el-form-item label="班级">
-                            <el-select v-model="formData.classname" placeholder="请选择班级">
+                            <el-select v-model="formData.st_class" placeholder="请选择班级">
                                 <el-option  v-for="classname in classnames" :value="classname">{{classname}}</el-option>
                             </el-select>
                         </el-form-item>
@@ -223,11 +223,9 @@
             isAdmin:true
         },
         created() {
-
             let user = JSON.parse(localStorage.getItem("user"));
             if (user.type === 1){
                 this.GetSelectProfession();
-                this.GetClassName();
             }else {
                 this.isAdmin = false
                 this.SelectByS_id(user.id)
@@ -236,6 +234,22 @@
         computed: {
             listLength: function () {
                 return this.pros.length
+            }/*,
+            classnames: function () {
+                if ("st_profession" in this.formData){
+                    console.log("存在st")
+                    console.log(this.GetClassName())
+                    return this.GetClassName();
+                }
+                return []
+            }*/
+        },
+        watch:{
+            'formData.st_profession':{
+                handler(nv,ov){
+                    this.GetClassName();
+                },
+                deep:true
             }
         },
         methods: {
@@ -251,9 +265,10 @@
                 })
             },
             GetClassName(){
-                axios.get("../profession/class").then((res)=>{
-                    this.classnames = res.data.data;
-                    console.log(this.classname);
+                console.log(this.formData.st_profession)
+                axios.post("../profession/class/"+this.formData.st_profession).then((res)=>{
+                    console.log(res.data.data)
+                    this.classnames =  res.data.data;
                 })
             },
             SelectByPro() {
