@@ -1,12 +1,10 @@
 package com.lin.controller;
 
+import com.lin.domain.Academy;
 import com.lin.domain.ClassDetail;
 import com.lin.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -55,4 +53,5 @@ public class ClassController {
         System.out.println(Count!=null ? "查询成功" :"查询失败");
         return new Result(code,Count,msg);
     }
+
 }

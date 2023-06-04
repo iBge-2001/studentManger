@@ -3,6 +3,7 @@ package com.lin.service.impl;
 import com.lin.dao.AcademyDao;
 import com.lin.dao.StudentDao;
 import com.lin.domain.Academy;
+import com.lin.domain.ClassDetail;
 import com.lin.domain.Student;
 import com.lin.service.AcademyService;
 import com.lin.service.StudentService;
@@ -36,5 +37,10 @@ public class AcademyServiceImpl implements AcademyService {
     @Override
     public List<Student> getByS_Id(String student_id) {
         return academyDao.getByS_id(student_id);
+    }
+
+    @Override
+    public Boolean updateClass(ClassDetail classDetail) {
+        return academyDao.updateClass(classDetail)>0;
     }
 }

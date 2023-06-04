@@ -1,6 +1,7 @@
 package com.lin.service;
 
 import com.lin.domain.Academy;
+import com.lin.domain.ClassDetail;
 import com.lin.domain.Student;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface AcademyService {
     public Integer getAcademyCount();
     public List<String> getClassName();
     List<Student> getByS_Id(String student_id);
+    public Boolean updateClass(ClassDetail classDetail);
 }

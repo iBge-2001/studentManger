@@ -1,13 +1,11 @@
 package com.lin.controller;
 
 import com.lin.domain.Academy;
+import com.lin.domain.ClassDetail;
 import com.lin.domain.Student;
 import com.lin.service.AcademyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -54,5 +52,10 @@ public class ProfessionController {
         Integer code = className!=null ? Code.GET_OK:Code.GET_ERR;
         String msg = className!=null ? "查询成功" :"查询失败";
         return new Result(code,className,msg);
+    }
+    @PutMapping()
+    public Result update(@RequestBody ClassDetail ClassDetail){
+        boolean flag = academyService.updateClass(ClassDetail);
+        return new Result(flag? Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     }
 }

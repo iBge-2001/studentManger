@@ -1,8 +1,10 @@
 package com.lin.dao;
 
 import com.lin.domain.Academy;
+import com.lin.domain.ClassDetail;
 import com.lin.domain.Student;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -21,4 +23,7 @@ public interface AcademyDao {
     //获取所有班级
     @Select("select classname from academy")
     public List<String> getClassName();
+    //修改班级信息
+    @Update("update academy set profession_id=#{profession_id},profession_name=#{profession_name},academy=#{academy},instructor=#{instructor},class_name=#{class_name} where classname = #{classname}")
+    public int updateClass(ClassDetail classDetail);
 }

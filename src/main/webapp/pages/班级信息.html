@@ -140,7 +140,7 @@
 
 				<el-button @click="dialogFormVisible = false">取消</el-button>
 
-				<el-button type="primary" @click="handl">确定</el-button>
+				<el-button type="primary" @click="handleAdd()">确定</el-button>
 
 			</div>
 
@@ -265,7 +265,7 @@
 						})
 					},
 					handleAdd(){
-						axios.post("../students", this.formData).then((res) => {
+						axios.post("../profession", this.formData).then((res) => {
 							console.log(res.data);
 							// //如果操作成功，关闭弹层
 							// this.dialogFormVisible=false;
@@ -280,11 +280,11 @@
 								this.$message.error(res.data.msg);
 							}
 						}).finally(() => {
-							this.SelectByPro();
+							this.SelectByAcademy();
 						});
 					},
 					handleEdit(){
-						axios.put("../students", this.formData).then((res) => {
+						axios.put("../profession", this.formData).then((res) => {
 							console.log(res.data);
 							// //如果操作成功，关闭弹层
 							// this.dialogFormVisible=false;
@@ -299,7 +299,7 @@
 								this.$message.error(res.data.msg);
 							}
 						}).finally(() => {
-							this.SelectByPro();
+							this.SelectByAcademy();
 						});
 
 					},
@@ -321,7 +321,7 @@
 							//3、取消删除操作
 							this.$message.info("取消删除操作");
 						}).finally(() => {
-							this.SelectByPro();
+							this.SelectByAcademy();
 						});
 					}
 
