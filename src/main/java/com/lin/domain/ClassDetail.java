@@ -5,7 +5,6 @@ public class ClassDetail {
     private String academy;
     private String classname;
     private int count;
-
     private String profession_id;
     private String instructor;
 
@@ -58,6 +57,9 @@ public class ClassDetail {
 
     public void setInstructor(String instructor) {
         this.instructor = instructor;
+    }
+
+    public ClassDetail() {
     }
 
     public ClassDetail(String academy, String classname, int count, String profession_id, String instructor) {

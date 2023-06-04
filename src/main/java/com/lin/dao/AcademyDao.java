@@ -24,6 +24,6 @@ public interface AcademyDao {
     @Select("select classname from academy")
     public List<String> getClassName();
     //修改班级信息
-    @Update("update academy set profession_id=#{profession_id},profession_name=#{profession_name},academy=#{academy},instructor=#{instructor},class_name=#{class_name} where classname = #{classname}")
+    @Update("update academy set profession_id=#{profession_id},academy=#{academy},instructor=#{instructor},classname=#{classname} where classname = #{classname}")
     public int updateClass(ClassDetail classDetail);
 }
