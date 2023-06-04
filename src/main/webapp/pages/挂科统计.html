@@ -39,7 +39,7 @@
 					<el-table-column label="查看" align="center">
 						<template slot-scope="scope">
 							<el-popover trigger="click">
-								<el-table :data="gridData">
+								<el-table :data="gridData" height="520">
 									<el-table-column width="150" prop="st_id" label="学号"></el-table-column>
 									<el-table-column width="100" prop="st_name" label="姓名"></el-table-column>
 									<el-table-column width="300" prop="grade" label="成绩"></el-table-column>

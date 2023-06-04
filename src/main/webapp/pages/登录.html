@@ -102,7 +102,7 @@
 				methods:{
 					submit(){
 						if(this.formData.user !== "" && this.formData.password !== ""){
-							if(true){
+							if(this.codeCheck()){
 								axios.post("../login",this.formData).then((res) =>{
 									if (res.data.code === 20051){
 										window.localStorage.setItem("user",JSON.stringify(res.data.data))
