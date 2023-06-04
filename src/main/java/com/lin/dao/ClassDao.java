@@ -19,4 +19,5 @@ public interface ClassDao {
     public String getAvgCount();
     @Select("SELECT COUNT(academy.classname) FROM academy")
     public String getClassCount();
+
 }

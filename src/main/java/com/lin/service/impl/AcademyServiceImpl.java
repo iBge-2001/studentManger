@@ -30,6 +30,10 @@ public class AcademyServiceImpl implements AcademyService {
     }
 
     @Override
+    public List<String> getClassName() {
+        return academyDao.getClassName();
+    }
+    @Override
     public List<Student> getByS_Id(String student_id) {
         return academyDao.getByS_id(student_id);
     }

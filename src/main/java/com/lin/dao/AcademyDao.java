@@ -18,4 +18,7 @@ public interface AcademyDao {
     //查询单个学生的信息
     @Select("select * from detailview where st_id = #{student_id}")
     List<Student> getByS_id(String student_id);
+    //获取所有班级
+    @Select("select classname from academy")
+    public List<String> getClassName();
 }

@@ -50,12 +50,13 @@
 		<div id="a1" style="color: #6495ED;font-size: larger">~~班级信息~~
 		</div>
 			<div >
+				<el-button id="B2" @click="showAddInput()" style="font-size: large;margin-right:10%">添加班级</el-button>
 				<select v-model ="Selection" @change="SelectByAcademy(Selection)" style="position: absolute;right:0" >
 					<option disabled value="">请选择</option>
 					<option v-for="emp in emps" :value="emp">{{emp}}</option>
 				</select>
-			</div>
 
+			</div>
 			<el-table border="1" cellspacing="0" cellpadding="" size="small" current-row-key="id" :data="pros" stripe highlight-current-row>
 
 				<el-table-column prop="profession_id" align="center" label="编号"></el-table-column>
@@ -63,6 +64,7 @@
 				<el-table-column prop="academy" label="院系" align="center"></el-table-column>
 
 				<el-table-column prop="classname" label="班级" align="center"></el-table-column>
+
 
 				<el-table-column prop="instructor" label="辅导员" align="center"></el-table-column>
 				<el-table-column prop="count" label="人数" align="center"></el-table-column>
@@ -79,7 +81,70 @@
 
 				</el-table-column>
 			</el-table>
+		<el-dialog class="add-form"  :visible.sync="dialogFormVisible">
+			<div id="h4" style="">~~请添加信息~~</div>
+			<el-form id="form1" ref="dataAddForm" :model="formData"  label-position="right" label-width="100px">
+				<el-row>
 
+					<el-col :span="12">
+
+						<el-form-item label="编号" prop="profession_id">
+
+							<el-input v-model="formData.profession_id"/>
+
+						</el-form-item>
+
+					</el-col>
+					<el-col :span="12">
+
+						<el-form-item label="院系">
+
+							<el-input v-model="formData.academy" prop="academy"></el-input>
+
+						</el-form-item>
+
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span="12">
+
+						<el-form-item label="班级" prop="classname">
+
+							<el-input v-model="formData.classname"/>
+
+						</el-form-item>
+
+
+					</el-col>
+
+					<el-col :span="12">
+
+						<el-form-item label="辅导员">
+
+							<el-input v-model="formData.instructor" prop="instructor"></el-input>
+
+						</el-form-item>
+
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="人数" >
+							<el-input v-model="formData.count" prop="count"></el-input>
+							<!--								<el-table-column prop="formData.count" label="人数" align="center"></el-table-column>-->
+						</el-form-item>
+					</el-col>
+				</el-row>
+
+			</el-form>
+
+			<div slot="footer" class="dialog-footer">
+
+				<el-button @click="dialogFormVisible = false">取消</el-button>
+
+				<el-button type="primary" @click="handl">确定</el-button>
+
+			</div>
+
+		</el-dialog>
 			<el-dialog class="add-form"  :visible.sync="dialogFormVisible4Edit">
 				<div id="h4" style="">~~请修改信息~~</div>
 				<el-form id="form1" ref="dataAddForm" :model="formData"  label-position="right" label-width="100px">
@@ -112,6 +177,7 @@
 								<el-input v-model="formData.classname"/>
 
 							</el-form-item>
+
 
 						</el-col>
 
@@ -226,9 +292,9 @@
 							// this.getAll();
 							if (res.data.code === 20031) {
 								this.dialogFormVisible = false;
-								this.$message.success("添加成功");
+								this.$message.success("修改成功");
 							} else if (res.data.code === 20030) {
-								this.$message.error("添加失败");
+								this.$message.error("修改失败");
 							} else {
 								this.$message.error(res.data.msg);
 							}

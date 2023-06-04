@@ -48,4 +48,11 @@ public class ProfessionController {
         String msg = studentList!=null ? "查询成功" :"查询失败";
         return new Result(code,studentList,msg);
     }
+    @GetMapping("/class")
+    public Result getClassName() {
+        List<String> className =  academyService.getClassName();
+        Integer code = className!=null ? Code.GET_OK:Code.GET_ERR;
+        String msg = className!=null ? "查询成功" :"查询失败";
+        return new Result(code,className,msg);
+    }
 }
